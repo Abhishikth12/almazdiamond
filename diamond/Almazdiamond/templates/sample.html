@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Engagement Rings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #fff;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* Hero / Title Section */
+    .collection-hero {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    .collection-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .collection-hero p {
+      font-size: 1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0.5rem auto 1.5rem;
+    }
+
+    /* Filter bar */
+
+
+    .filter-btn {
+      border: 1px solid #ccc;
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .filter-btn:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .product-card {
+      border: 1px solid #e6e6e6;
+      border-radius: 4px;
+      text-align: center;
+      padding: 1rem;
+      transition: box-shadow 0.3s;
+      background-color: #fff;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card h2 {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      color: #333;
+    }
+
+    .product-card .price {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card .view-details {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      background-color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .product-card .view-details:hover {
+      background-color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #f8f8f8;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid #e6e6e6;
+    }
+
+    footer p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      nav ul {
+        display: none; /* Hide nav on very small screens or replace with a menu icon */
+      }
+    }
+    .ring-categories {
+        background-color: #fff;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      
+      .ring-categories ul {
+        display: flex;              /* displays list items in a row */
+        justify-content: center;    /* centers them horizontally */
+        list-style: none;
+        padding: 1rem;
+        margin: 0;
+        gap: 1rem;                  /* space between items */
+      }
+      
+      .ring-categories li {
+        text-align: center;         /* centers image + text */
+      }
+      
+      .ring-categories a {
+        display: flex;
+        flex-direction: column;     /* stack image above text */
+        align-items: center;        /* center them horizontally */
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        transition: background-color 0.3s;
+        padding: 0.5rem 1rem;       /* add some padding around the link */
+        border-radius: 5px;
+      }
+      
+      .ring-categories a:hover {
+        background-color: #f5f5f5;
+      }
+      
+      .ring-categories img {
+        width: 40px;                /* adjust icon size as needed */
+        height: 40px;
+        margin-bottom: 0.25rem;     /* space between icon and text */
+      }
+      
+      .ring-categories span {
+        margin-top: 0.25rem;        /* small gap above text (optional) */
+      }
+      
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  
+
+  <!-- Hero Section -->
+  <section class="collection-hero">
+    <h1>Engagement Rings</h1>
+    <p>Discover our collection of made-to-order engagement rings and customize to your preference.</p>
+  </section>
+  <nav class="ring-categories">
+    <ul>
+      <li>
+        <a href="#">
+          <!-- Replace with your icon/image URL -->
+          <img src="images\diamond ring1.jpg" alt="Solitaire Icon">
+          <span>Solitaire</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Pave Icon">
+          <span>Pave</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Halo Icon">
+          <span>Halo</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Nature Icon">
+          <span>Nature</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Hidden Halo Icon">
+          <span>Hidden Halo</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Side Stone Icon">
+          <span>Side Stone</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Three Stone Icon">
+          <span>Three Stone</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="images\diamond ring1.jpg" alt="Vintage Icon">
+          <span>Vintage</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+ 
+
+  <!-- Product Grid -->
+  <div class="product-grid">
+    <!-- Product Card 1 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Round Diamond Ring" />
+      <h2>Round Diamond Ring</h2>
+      <p class="price">$1,199.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Princess Diamond Ring" />
+      <h2>Princess Diamond Ringmmm</h2>
+      <p class="price">$1,299.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Product Card 3 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Cushion Diamond Ring" />
+      <h2>Cushion Diamond Ring</h2>
+      <p class="price">$1,099.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Product Card 4 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Emerald Diamond Ring" />
+      <h2>Emerald Diamond Ring</h2>
+      <p class="price">$1,499.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Product Card 5 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Oval Diamond Ring" />
+      <h2>Oval Diamond Ring</h2>
+      <p class="price">$1,399.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Product Card 6 -->
+    <div class="product-card">
+      <img src="images\diamond ring1.jpg" alt="Vintage Diamond Ring" />
+      <h2>Vintage Diamond Ring</h2>
+      <p class="price">$1,299.00</p>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <!-- Add more products as needed -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My Jewelry Store. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
