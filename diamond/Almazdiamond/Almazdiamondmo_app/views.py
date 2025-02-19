@@ -9,6 +9,7 @@ def test_view(request):
 def test_2(request):
     return HttpResponse('working')
 def login(request):
+
     return render(request,'login.html')
 def admin_dashboard(request):
     context={"CURRENCY_CHOICES":CURRENCY_CHOICES}
