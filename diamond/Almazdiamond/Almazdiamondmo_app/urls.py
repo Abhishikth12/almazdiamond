@@ -8,8 +8,10 @@ urlpatterns=[
 
     path('admin_dashboard',views.admin_dashboard,name="admin_dashboard"),
     path('submitproduct',views.submit_product,name="submitproduct"),
+
     path('setting',views.setting,name="setting"),
     path('stone',views.stone,name="stone"),
+
 
 
     path('login',views.login,name='login'),
