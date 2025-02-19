@@ -1,0 +1,42 @@
+<div>
+    <form method="POST" action="submitproduct" enctype="multipart/form-data">
+        {%csrf_token%}
+        <span>
+            <label>Name</label>
+            <input type="text" name="name" required>
+        </span>
+        <span>
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+        </span>
+        <span>
+            <label>Main Display Image</label>
+            <input type="file" name="main_image"  required >
+        </span>
+        <span>
+            <label>Files (images/videos)</label>
+            <input type="file" name="Files"   multiple>
+
+        </span>
+   
+       
+        <span>
+            <label>Price</label>
+           <input type="text" name="price" required pattern="^\d+(\.\d+)?$" title="Enter a valid number (e.g., 100 or 100.50)">
+
+        </span>
+        <span>
+            <label>Currency</label>
+            <select name="currency">
+                <option hidden>Currency</option>
+                {%for i,j in CURRENCY_CHOICES%}
+                
+                <option value="{{i}}" >{{j}}  ({{i}})</option>
+                {%endfor%}
+            </select>
+        </span>
+        <span>
+            <button type="submit">Submit</button>
+        </span>
+    </form>
+</div>
