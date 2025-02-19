@@ -1,25 +1,173 @@
+{% load static%}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almaz Diamond</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>{% block title %}Almaz Diamond{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <div id="navbar-container"></div>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    {% block content %}
+    <div>
+        <div style="display: flex;flex-direction:row;background-image: linear-gradient(#BC9273,#FFF2E8 );">
+                <div style="text-align: center;padding: 9% 5% 9% 9%;">
+                        <h4 class="landh4">YOUR JOURNEY BEGINS NOW</h4>
+                        <h1 class="landh1">MAKE IT YOURS</h1>
+                        <p class="landp">Craft your dream ring in 2 easy steps: pick your setting,<br> customize it, and find the ideal center stone.</p>
+                        <button class="landbtn">Shop Engagement Rings</button>
+                </div>
+                <div>
+                    <img src="{%static 'img/landinggirl.png'%}" alt="">
+                </div>
+        </div>
+        <div>
+            <div style="display: flex;justify-content:center;">
+                <div class="scndsecring">
+                    <img src="{% static 'img/ringseting.png'%}" alt="">
+                    <div class="scndhead">RING SETTING</div>
+                    <p class="scndp">Elevate your love story with our exquisite<br> collection of engagement ring designs</p>
+                    <button class="scndbtn">Start With a Setting</button>
+                </div>
+                <div>
+                    <img src="{% static 'img/ringcenter.jpg'%}" alt=""  style="height: 85vh;">
+                </div>
+                <div class="scndsecring">
+                    <img src="{% static 'img/diamondseting.png'%}" alt="">
+                    <div class="scndhead">CENTER STONE</div>
+                    <p class="scndp">Explore our stunning diamond collection <br> and discover the brilliance in every choice.</p>
+                    <button class="scndbtn">Start With a Stone</button>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;justify-content:center;background-image: linear-gradient(#bbb8b8, #ffffff );">
+            <div>
+                <img src="{% static 'img/3arrow.png'%}" alt="">
+            </div>
+            <div>
+                <img src="{% static 'img/3cnterimg.png'%}" alt="" style="height: 72vh;">
+            </div>
+            <div>
+                <img src="{% static 'img/3right.png'%}" alt="">
+            </div>
+        </div>
+        <div>
+            <div class="ourselec">OUR SELECTIONS</div>
+            <div style="display: flex;justify-content:space-between;margin:2%;">
+                <div class="cardsel">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>Shop Now</h6>
+                </div>
+                <div class="cardsel">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>Shop Now</h6>
+                </div>
+                <div class="cardsel">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>Shop Now</h6>
+                </div>
+                <div class="cardsel">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>Shop Now</h6>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;flex-direction:row;background-image: linear-gradient(#fff,#FFF2E8 );">
+            <div style="text-align: center;padding: 9% 5% 9% 9%;">
+                <h1 class="landh1">CONSULT YOUR EXPERTS NOW</h1>
+                    <h4 class="landh4">MAKE IT YOURS</h4>
+                    
+                    <p class="landp">Enjoy personalized advice and a free live consultation with Keyzar experts for your dream ring.</p>
+                    <button class="landbtn">Set an Appoinment</button>
+            </div>
+            <div>
+                <img src="{%static 'img/4secalmaz.png'%}" alt="">
+            </div>
+        </div>
+        <div>
+            <div class="ourselec">OUR BEST SELLERS</div>
+            <div style="display: flex;justify-content:space-between;margin:2%;">
+                <div class="cardsel2">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>$500</h6>
+                </div>
+                <div class="cardsel2">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>$500</h6>
+                </div>
+                <div class="cardsel2">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>$500</h6>
+                </div>
+                <div class="cardsel2">
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="" style="height: 35vh;">
+                    <h3>Engagement Rings</h3>
+                    <h6>$500</h6>
+                </div>
+            </div>
+        </div>
+        <div style="background-image: linear-gradient(#BC9273,#FFF2E8 );">
 
-    <h1>Welcome to Almaz Diamond</h1>
-    <p>Your premier destination for fine jewelry and engagement rings.</p>
+            <div class="ourselec">Trust Pilot</div>
+            <div class="ourselec1">See what our clients have to say</div>
+            <div style="display: flex;justify-content:space-between;margin:2%;gap:25px;">
+                <div class="cardsel2">
+                   <h3>Molle</h3>
+                    <hr>
+                    <p>My experience with Almaz was phenomenal! I was able to customize the ring 
+                        I wanted on the website and choose the stone myself. I was even able to get
+                         a discount for my order! I received my order within 3 weeks and I am so happy with the quality.
+                         This 3 carat lab diamond Riley necklace was my second purchase in 6 weeks. Both my eternity band and 
+                         this necklace are everything I was hoping for! AND… I received the necklace 20 hours after I ordered it- amazing!
+                         Final product arrived and was fantastic. Great quality product and sales were a plus. </p>
+                </div>
+                <div class="cardsel2">
+                    <h3>Molle</h3>
+                     <hr>
+                     <p>My experience with Almaz was phenomenal! I was able to customize the ring 
+                         I wanted on the website and choose the stone myself. I was even able to get
+                          a discount for my order! I received my order within 3 weeks and I am so happy with the quality.
+                          This 3 carat lab diamond Riley necklace was my second purchase in 6 weeks. Both my eternity band and this necklace are 
+                          everything I was hoping for! AND… I received the necklace 20 hours after I ordered it- amazing! 
+                          Final product arrived and was fantastic. Great quality product and sales were a plus.</p>
+                 </div>
+                 <div class="cardsel2">
+                    <h3>Molle</h3>
+                     <hr>
+                     <p>My experience with Almaz was phenomenal! I was able to customize the ring 
+                         I wanted on the website and choose the stone myself. I was even able to get
+                          a discount for my order! I received my order within 3 weeks and I am so happy with the quality.
+                          This 3 carat lab diamond Riley necklace was my second purchase in 6 weeks. Both my eternity band and this 
+                          necklace are everything I was hoping for! AND… I received the necklace 20 hours after I ordered it- amazing! 
+                          Final product arrived and was fantastic. Great quality product and sales were a plus.</p>
+                 </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
     
-    <button><a href="#">testtt </a></button>
+    
+    {% endblock %}
     <!-- Footer -->
-    <div id="footer-container"></div>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
 
-    <!-- <script>
-        fetch('nav.html').then(response => response.text()).then(data => document.getElementById('navbar-container').innerHTML = data);
-        fetch('footer.html').then(response => response.text()).then(data => document.getElementById('footer-container').innerHTML = data);
-    </script> -->
+    
 </body>
-</html>
+</html>   

@@ -1,0 +1,251 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almaz Diamond Navigation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .top-bar {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+           
+        }
+        .logo img {
+           
+            margin-right: 10px;
+        }
+        .menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-family: system-ui;
+            margin-left: 9%;
+        }
+        .menu li {
+            position: relative;
+        }
+        .menu li a {
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+        }
+        .menu li a:hover {
+            border-bottom: 2px solid black;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 52px;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            white-space: nowrap;
+            border-radius: 5px;
+        }
+        .menu li:hover .submenu {
+            display: flex;
+            gap: 30px;
+            padding: 20px;
+        }
+        .submenu div {
+            display: flex;
+            flex-direction: column;
+        }
+        .submenu h4 {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: black;
+        }
+        .submenu a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            margin: 3px 0;
+            display: flex;
+            align-items: center;
+        }
+        .submenu a:hover {
+            color: black;
+        }
+        .icons {
+            display: flex;
+            gap: 15px;
+        }
+        .icons img {
+            height: 25px;
+            cursor: pointer;
+        }
+        .search-bar {
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 14px;
+            padding: 5px;
+            width: 180px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    FREE SHIPPING WORLDWIDE
+</div>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="{% static 'img/almazmain.png'%}" alt="Almaz Logo">
+        
+    </div>
+
+    
+    
+    <ul class="menu">
+        <li class="dropdown">
+            <a href="#">FINE JEWELRY</a>
+            <div class="submenu">
+                <div>
+                    <h4>RINGS</h4>
+                    
+                    <a href="#">wedding Bands</a>
+                    <a href="#">Eternity Rings</a>
+                    <a href="#">Aniversary RIngs</a>
+                    
+                </div>
+                <div>
+                    <h4>EARRINGS</h4>
+                    <a href="#">Diamond Earrings</a>
+                    <a href="#">Drop & Dangle</a>
+                    <a href="#">Huggies & Hoops</a>
+                    <a href="#">Crawerls</a>
+                    
+                </div>
+                <div>
+                    <h4>NECKLACES</h4>
+                    <a href="#">Diamond Pendants</a>
+                    <a href="#">Necklaces</a>
+                    
+                </div>
+                <div>
+                    <h4>BRACELETS</h4>
+                    <a href="#" >Tennis</a>
+                    <a href="#" >Bangles</a>
+                   
+                </div>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#">Engagement Rings</a>
+            <div class="submenu">
+                <div>
+                    <h4>DESIGN YOUR ENGAGEMENT RING</h4>
+                    <a href="#">Start with a Setting</a>
+                    <a href="#">Start with a Natural Diamond</a>
+                    <a href="#">Start with a Lab-Created Diamond</a>
+                    <a href="#">Start with a Gemstone</a>
+                </div>
+                <div>
+                    <h4>PRESET ENGAGEMENT RINGS</h4>
+                    <a href="#">Round</a>
+                    <a href="#">Cushion</a>
+                    <a href="#">Emerald</a>
+                    <a href="#">Radiant</a>
+                    <a href="#">Oval</a>
+                    <a href="#">Pear</a>
+                    <a href="#">Princess</a>
+                    <a href="#">Elongated Cushion</a>
+                </div>
+                <div>
+                    <h4>SHOP BY STYLE</h4>
+                    <a href="#">Solitaire</a>
+                    <a href="#">Vintage</a>
+                    <a href="#">Hidden Halo</a>
+                    <a href="#">Three Stone</a>
+                    <a href="#">Nature</a>
+                    <a href="#">Side Stones</a>
+                    <a href="#">Pave</a>
+                    <a href="#">Halo</a>
+                </div>
+                <div>
+                    <h4>SHOP BY METAL</h4>
+                    <a href="#" style="color: gold;">● Yellow Gold</a>
+                    <a href="#" style="color: pink;">● Rose Gold</a>
+                    <a href="#" style="color: silver;">● White Gold</a>
+                    <a href="#">● Platinum</a>
+                </div>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#">Wedding Bands</a>
+            <div class="submenu">
+                <div>
+                    <h4>FOR HER</h4>
+                    <a href="#">Nature</a>
+                    <a href="#">Solid</a>
+                    <a href="#">Pave</a>
+                    <a href="#">Eternity</a>
+                    <a href="#">Aniversary</a>
+                    <a href="#">Prong</a>
+
+
+                </div>
+                <div>
+                    <h4>FOR HIM</h4>
+                    <a href="#">Classic</a>
+                    <a href="#">Diamond</a>
+                    <a href="#">Desiginer</a>
+                    
+                </div>
+                
+                <div>
+                    <h4>SHOP BY METAL</h4>
+                    <a href="#" style="color: gold;">● Yellow Gold</a>
+                    <a href="#" style="color: pink;">● Rose Gold</a>
+                    <a href="#" style="color: silver;">● White Gold</a>
+                    <a href="#">● Platinum</a>
+                </div>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#">Diamonds</a>
+        </li>
+        <li class="dropdown">
+            <a href="#">Gemstones</a>
+        </li>
+        
+    </ul>
+    <input type="text" class="search-bar" placeholder="Search...">
+    <div class="icons">
+        <a href="#"><img src="{% static 'img/user.png' %}" alt="Cart"></a>
+        <a href="login.html"><img src="{% static 'img/cart.png' %}" alt="Account"></a>
+    </div>
+</nav>
+
+</body>
+</html>
