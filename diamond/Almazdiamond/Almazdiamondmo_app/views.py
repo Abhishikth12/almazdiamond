@@ -6,3 +6,5 @@ def test_view(request):
 
 def test_2(request):
     return HttpResponse('working')
+def login(request):
+    return render(request,'login.html')
