@@ -40,8 +40,11 @@ def submit_product(request,id=None):
 
     return redirect('admin_dashboard')
 
-def sample(request):
+def setting(request):
     products=Products.objects.all()
     context={"products":products}
-    return render(request,'sample.html',context)
-
+    return render(request,'setting.html',context)
+def stone(request):
+    products=Products.objects.all()
+    context={"products":products}
+    return render(request,'stone.html',context)
