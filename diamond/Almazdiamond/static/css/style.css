@@ -46,9 +46,31 @@ body {
     border:1px solid #3f3e3e;
 }
 .cardsel{
-    padding: 5% 5% 2% 5%;
+    padding: 2%;
     background-image:  linear-gradient(#BC9273,#FFF2E8 );
-    border-radius: 8px;
+    border-radius: 40px;
+}
+.cardsel h3{
+    font-size: 21px;
+    font-family: system-ui;
+    font-weight: 500;
+}
+.cardselsec{
+    padding: 2%;
+    background-image:  linear-gradient(#766c64,#FFF2E8 );
+    border-radius: 40px;
+}
+.cardselsec h3{
+    font-size: 21px;
+    font-family: system-ui;
+    font-weight: 500;
+}
+.iconsmain{
+    display: flex;
+    flex-direction: column;
+}
+.iconsmain img{
+    width: fit-content;
 }
 .loginSection {
     display: flex;
@@ -79,11 +101,15 @@ body {
 }
 
 .cardsel2{
-    padding: 3% 2% 2% 2%;
-    border:1px solid #3f3e3e;
-    border-radius: 38px;
+    
+    
     background-color: #fff;
 
+}
+.cardsel2 img {
+    padding: 5% 25% 5% 25%;
+    border: 1px solid #3f3e3e;
+    border-radius: 18px;
 }
 .cardsel2 p{
     line-height: 36px;
@@ -102,7 +128,7 @@ body {
     font-size: 28px;
     font-weight: 500;
     font-family: auto;
-    
+    margin-top:-2%;
 }
 .menu {
     list-style: none;
