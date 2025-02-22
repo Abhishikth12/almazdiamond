@@ -1,5 +1,8 @@
 from django.contrib import admin
 from .models import *
 # Register your models here.
-admin.site.register(Products)
-admin.site.register(ProductFiles)
+admin.site.register(Stone)
+admin.site.register(RingSettings)
+admin.site.register(Shoppers)
+admin.site.register(RingDetails)
+admin.site.register(StoneDetails)

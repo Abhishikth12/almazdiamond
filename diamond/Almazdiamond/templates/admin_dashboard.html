@@ -1,42 +1,39 @@
-<div>
-    <form method="POST" action="submitproduct" enctype="multipart/form-data">
-        {%csrf_token%}
-        <span>
-            <label>Name</label>
-            <input type="text" name="name" required>
-        </span>
-        <span>
-            <label>Description</label>
-            <textarea name="description" required></textarea>
-        </span>
-        <span>
-            <label>Main Display Image</label>
-            <input type="file" name="main_image"  required >
-        </span>
-        <span>
-            <label>Files (images/videos)</label>
-            <input type="file" name="Files"   multiple>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <div class="w-64 h-full bg-white shadow-lg flex flex-col fixed">
+        <div class="p-4 text-lg font-bold border-b">My App</div>
+        <nav class="flex-1 p-2">
+            <ul>
+                <li class="mb-2">
+                    <a href="{% url 'ring_settings_admin' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+                        <span class="ml-2">Ring Setting</span>
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="{% url 'ring_settings_admin' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+                        <span class="ml-2">Stone</span>
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="{% url 'ring_settings_admin' %}" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+                        <span class="ml-2">Complete Ring</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        </span>
-   
-       
-        <span>
-            <label>Price</label>
-           <input type="text" name="price" required pattern="^\d+(\.\d+)?$" title="Enter a valid number (e.g., 100 or 100.50)">
-
-        </span>
-        <span>
-            <label>Currency</label>
-            <select name="currency">
-                <option hidden>Currency</option>
-                {%for i,j in CURRENCY_CHOICES%}
-                
-                <option value="{{i}}" >{{j}}  ({{i}})</option>
-                {%endfor%}
-            </select>
-        </span>
-        <span>
-            <button type="submit">Submit</button>
-        </span>
-    </form>
-</div>
+    <!-- Main Content -->
+    <div class="flex-1 p-6 ml-64">
+        {% block rightcontent %}{% endblock rightcontent %}
+    </div>
+</body>
+</html>
