@@ -163,19 +163,90 @@ CURRENCY_CHOICES = [
     ('ZMW', 'Zambian kwacha'),
     ('ZWL', 'Zimbabwean dollar'),
 ]
+
+SETTING_TYPES=(
+    ('Solitaire','Solitaire'),
+    ('Halo','Halo'),
+    ('Pave','Pave'),
+    ('Three Stone','Three Stone'),
+    ('Nature','Nature'),
+    ('Hidden Halo','Hidden Halo'),
+    ('Sidestone','Sidestone'),
+    ('Vintage','Vintage')
+
+)
+
+METAL_TYPES=(
+    ('Yellow Gold','Yellow Gold'),
+    ('White Gold','White Gold'),
+    ('Rose Gold','Rose Gold'),
+    ('Platinum','Platinum')
+)
+RING_SHAPES=(
+    ('Round','Round'),
+    ('Oval','Oval'),
+    ('Pear','Pear'),
+    ('E-Cushion','E-Cushion'),
+    ('Cushion','Cushion'),
+    ('Emerald','Emerald'),
+    ('Princess','Princess'),
+    ('Marquise','Marquise'),
+    ('Radiant','Radiant')
+    )
+
+STONE_SHAPES=(
+    ('Round','Round'),
+    ('Emarald','Emarald'),
+    ('Heart','Heart'),
+    ('Marquise','Marquise'),
+    ('Oval','Oval'),
+    ('Pear','Pear'),
+    ('Princess','Princess'),
+    ('Radiant','Radiant'),
+    ('Cushion','Cushion'),
+    ('E-Cushion','E-Cushion')
+    )
+
+STONE_CUT_CHOICES=(
+    ('Good','Good'),
+    ('Very Good','Very Good'),
+    ('Excellent','Excellent')
+)
 class Shoppers(models.Model):
     client=models.ForeignKey(User,on_delete=models.CASCADE)
     address_line1=models.TextField(null=True,blank=True)
     address_line2=models.TextField(null=True,blank=True)
     pincode=models.CharField(max_length=10,null=True,blank=True)
 
-class Products(models.Model):
-    name=models.CharField(max_length=200,null=True,blank=True)
+class RingSettings(models.Model):
+    ring_settings=models.CharField(choices=SETTING_TYPES,max_length=60,null=True,blank=True)
+    metal_type=models.CharField(choices=METAL_TYPES,max_length=100,null=True,blank=True)
+    shapes=models.CharField(choices=RING_SHAPES,max_length=100,null=True,blank=True)
+    name=models.CharField(max_length=100,null=True,blank=True)
     description=models.TextField(null=True,blank=True)
     price=models.FloatField(null=True,blank=True)
-    currency=models.CharField(max_length=50,choices=CURRENCY_CHOICES,default='USD')
-    main_image=models.ImageField(upload_to='product_main_image/',null=True,blank=True)
+    currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
+    image=models.ImageField(upload_to='Ring_images/',null=True,blank=True)
+    created_at=models.DateTimeField(auto_now_add=True)
 
-class ProductFiles(models.Model):
-    product=models.ForeignKey(Products,on_delete=models.CASCADE)
-    files=models.FileField(upload_to='product_files/',null=True, blank=True)
+class RingDetails(models.Model):
+    ring=models.ForeignKey(RingSettings,on_delete=models.CASCADE)
+    file=models.FileField(upload_to='Ring_images/',null=True,blank=True)
+
+class Stone(models.Model):
+    stone_name=models.CharField(max_length=100,null=True,blank=True)
+    description=models.TextField(null=True,blank=True)
+    stone_type=models.CharField(max_length=100,null=True,blank=True)
+    stone_shape=models.CharField(choices=STONE_SHAPES,max_length=100,null=True,blank=True)
+    stone_carat=models.FloatField(null=True,blank=True)
+    stone_color=models.CharField(max_length=100,null=True,blank=True)
+    stone_clarity=models.CharField(max_length=100,null=True,blank=True)
+    stone_cut=models.CharField(choices=STONE_CUT_CHOICES,max_length=100,null=True,blank=True)
+    stone_price=models.FloatField(null=True,blank=True)
+    currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
+    image=models.ImageField(upload_to='Stone_images/',null=True,blank=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+class StoneDetails(models.Model):
+    stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
+    file=models.FileField(upload_to='Stone_images/',null=True,blank=True)
