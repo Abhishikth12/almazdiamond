@@ -200,14 +200,102 @@
       .ring-categories span {
         margin-top: 0.25rem;        /* small gap above text (optional) */
       }
+      {% load static %}
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Engagement Rings</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+          /* Reset default styles */
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
       
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+          }
+      
+          /* Header styles */
+          header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e6e6e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+      
+          .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+          }
+      
+          nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+          }
+      
+          nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+          }
+      
+          /* Step Indicator */
+          .steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+          }
+      
+          .step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border: 2px solid #ccc;
+            border-radius: 50px;
+            margin: 0 1rem;
+            width: 30%;
+            font-weight: bold;
+            background-color: #f8f8f8;
+            transition: all 0.3s;
+          }
+      
+          .step.active {
+            border-color: #000;
+            background-color: #000;
+            color: #fff;
+          }
+      
+          .step:hover {
+            border-color: #666;
+            background-color: #ddd;
+            color: #000;
+          }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  
-
+  <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+<div class="steps">
+  <div class="step active">1. Select Setting</div>
+  <div class="step">2. Select Stone</div>
+  <div class="step">3. Complete Ring</div>
+</div>
   <!-- Hero Section -->
   <section class="collection-hero">
     <h1>Engagement Rings</h1>
@@ -248,11 +336,12 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 My Jewelry Store. All Rights Reserved.</p>
-  </footer>
+  <div id="footer-container">
+    {% include 'footer.html' %}
+</div>
 <script>
  
 </script>
+
 </body>
 </html>

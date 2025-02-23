@@ -1,5 +1,13 @@
 {% load static%}
-
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+<div class="steps">
+    <div class="step active">1. Select Setting</div>
+    <div class="step">2. Select Stone</div>
+    <div class="step">3. Complete Ring</div>
+  </div>
 <span>
     {%for i in ring_details%}
     <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
@@ -7,7 +15,7 @@
 
     {%endfor%}
 </span>
-<span>
+<span>  
     <h3>{{ring.name}}</h3>
     <p>{{ring.description}}</p>
     <p>{{ring.shapes}}</p>
@@ -27,3 +35,6 @@
    <a href="#"><button>Buy setting only</button></a>
    {%endif%}
 </span>
+<div id="footer-container">
+    {% include 'footer.html' %}
+</div>

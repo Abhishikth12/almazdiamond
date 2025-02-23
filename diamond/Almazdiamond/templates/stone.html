@@ -206,7 +206,9 @@
 <body>
 
   <!-- Header -->
-  
+  <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
 
   <!-- Hero Section -->
   <section class="collection-hero">
@@ -273,9 +275,9 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 My Jewelry Store. All Rights Reserved.</p>
-  </footer>
+  <div id="footer-container">
+    {% include 'footer.html' %}
+</div>
 <script>
   document.getElementById('cards').addEventListener('click',()=>{
     window.location.href=`/stone`;
