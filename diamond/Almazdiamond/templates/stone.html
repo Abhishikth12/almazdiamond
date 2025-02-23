@@ -215,57 +215,42 @@
   </section>
   <nav class="ring-categories">
     <ul>
-      <li>
-        <a href="{url''}">
-          <!-- Replace with your icon/image URL -->
-          <img src="{% static 'img/ringseting.png'%}"alt="Solitaire Icon">
-          <span>Solitaire</span>
-        </a>
-      </li>
+     
+      {%for i in stone_shapes%}
       <li>
         <a href="#">
           <img src="{% static 'img/ringseting.png'%}" alt="Pave Icon">
-          <span>Pave</span>
+          <span>{{i.0}}</span>
         </a>
       </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Halo Icon">
-          <span>Halo</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Nature Icon">
-          <span>Nature</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Hidden Halo Icon">
-          <span>Hidden Halo</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Side Stone Icon">
-          <span>Side Stone</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Three Stone Icon">
-          <span>Three Stone</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Vintage Icon">
-          <span>Vintage</span>
-        </a>
-      </li>
+      {%endfor%}
+      
+    </ul>
+
+  </nav>
+  <nav>
+    <label> Stone Cut</label>
+    <ul>
+
+      {%for i in stone_cuts%}
+      <li><a href="#">{{i.0}}</a></li>
+     {%endfor%}
     </ul>
   </nav>
+  <nav>
+    <label>Stone Clarity</label>
+    <ul>
+
+      {%for i in stone_clarity%}
+      <li><a href="#">{{i.0}}</a></li>
+     {%endfor%}
+    </ul>
+  </nav>
+  <span>
+    <label>Price Range</label>
+    <input type="number"  value="220" name="min_range"placeholder="Min" />
+    <input type="number"  value="1000" name="max_range"placeholder="Max" />
+  </span>
   
  
 
@@ -273,12 +258,13 @@
   
   <div class="product-grid">
     <!-- Product Card 1 -->
-    {%for i in products%}
+    {%for i in stones%}
     <div class="product-card" id="cards">
-      <img src="media/{{i.main_image}}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
-      <h2>{{i.name}}</h2>
+      <img src="{{i.image.url}}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
+      <h2>{{i.stone_name}}</h2>
       <p class="price">{{i.currency}}  {{i.price}}</p>
-      <a href="#" class="view-details">View Details</a>
+
+      <a href="{%if ring_id %}{%url 'ring_get_more_stone_details' i.id ring_id%}{%else%}{%url 'get_more_stone_details' i.id %}{%endif%}" class="view-details">View Details</a>
     </div>
 {%endfor%}
     <!-- Product Card 2 -->

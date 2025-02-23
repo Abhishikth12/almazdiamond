@@ -212,6 +212,16 @@ STONE_CUT_CHOICES=(
     ('Very Good','Very Good'),
     ('Excellent','Excellent')
 )
+
+STONE_CLARITY=(
+    ('SH','SH'),
+    ('VS2','VS@'),
+    ('VS1','VS1'),
+    ('VVS2','VVS2'),
+    ('VVS1','VVS1'),
+    ('IF','IF'),
+    ('FL','FL'),
+)
 class Shoppers(models.Model):
     client=models.ForeignKey(User,on_delete=models.CASCADE)
     address_line1=models.TextField(null=True,blank=True)
@@ -240,7 +250,7 @@ class Stone(models.Model):
     stone_shape=models.CharField(choices=STONE_SHAPES,max_length=100,null=True,blank=True)
     stone_carat=models.FloatField(null=True,blank=True)
     stone_color=models.CharField(max_length=100,null=True,blank=True)
-    stone_clarity=models.CharField(max_length=100,null=True,blank=True)
+    stone_clarity=models.CharField(choices=STONE_CLARITY,max_length=100,null=True,blank=True)
     stone_cut=models.CharField(choices=STONE_CUT_CHOICES,max_length=100,null=True,blank=True)
     stone_price=models.FloatField(null=True,blank=True)
     currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
@@ -250,3 +260,13 @@ class Stone(models.Model):
 class StoneDetails(models.Model):
     stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
     file=models.FileField(upload_to='Stone_images/',null=True,blank=True)
+
+class Combination(models.Model):
+    stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
+    ring=models.ForeignKey(RingSettings,on_delete=models.CASCADE)
+    price=models.FloatField(null=True,blank=True)
+    currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
+
+class CombinationFiles(models.Model):
+    combination=models.ForeignKey(Combination,on_delete=models.CASCADE)
+    files=models.FileField(upload_to='combinationfiles/',null=True,blank=True)
