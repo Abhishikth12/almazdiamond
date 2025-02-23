@@ -1,0 +1,70 @@
+{%extends 'admin_dashboard.html'%}
+{% block rightcontent %}
+<div class="p-6">
+<form action="{%if id %}{% url 'edit_stone' id %}{%else%}{% url 'add_stone'  %}{%endif%}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <span>
+        <label>Name</label>
+        <input type="text" name="stone_name" id="name" class="form-control" {%if stone.stone_name%}value="{{stone.stone_name}}"{%endif%}required>
+    </span>
+    <span>
+        <label>Description</label>
+        <textarea name="description" name="description" id="description" class="form-control" required>{%if stone.description%}{{stone.description}}{%endif%}</textarea>
+    </span>
+    <span>
+        <label>Cut</label>
+        <select name="stone_cut">
+            {%for i,j in stone_cuts%}
+            <option value="{{i}}"{%if stone.stone_cut == i %}selected{%endif%}>{{j}}</option>
+            {%endfor%}
+        </select>
+    </span>
+   <span>
+    <label>Clarity</label>
+    <select name="stone_clarity">
+    {%for i,j in stone_clarities%}
+    <option value="{{i}}"{%if stone.stone_clarity == i %}selected{%endif%}>{{j}}</option>
+    {%endfor%}
+</select>
+   </span>
+    <span>
+        <label>Shape</label>
+        <select name="stone_shape">
+            {%for i,j in stone_shapes%}
+            <option value="{{i}}"{%if stone.stone_shape == i %}selected{%endif%}>{{j}}</option>
+            {%endfor%}
+        </select>
+    </span>
+    <span>
+        <label>Price</label>
+        <input type="text" name="stone_price" id="price" class="form-control" 
+    {% if stone.stone_price %}value="{{ stone.stone_price }}"{% endif %} 
+    required pattern="^\d*\.?\d*$" title="Enter a valid number (e.g., 10 or 10.5)">
+
+    </span>
+    <span>
+        <label>Currency</label>
+        <select name="currency">
+            {%for i,j in currency%}
+            <option value="{{i}}"{%if stone.currency == i %}selected{%endif%}>{{j}}</option>
+            {%endfor%}
+        </select>
+    </span>
+    <span>
+        <label>Image(will display as thumbnail)</label>
+        <p>{%if stone.image%}{{stone.image}} <a href="{%url 'delete_stone_image' stone.id %}" style="color: red;margin-left:10px">X</a></p>{%endif%}</p>
+        <input type="file" name="image" id="image" class="form-control"  {%if stone.image%}requiredvalue="{{stone.image}}"{%endif%}>
+    </span>
+    <span>
+        <label>More Files(Image/Video)</label>
+        {%for i in stone_details%}
+        <p>{{i.file}}<a href="{%url 'delete_stone_files'  stone.id i.id%}" style="color: red;margin-left:10px">X</a></p><br>
+        {%endfor%}
+        <input type="file" name="files" id="files" class="form-control" {%if not stone_details%}required{%endif%} multiple>
+    </span>
+    <span>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Submit</button>
+    </span>
+</form>
+</div>
+{% endblock rightcontent %}

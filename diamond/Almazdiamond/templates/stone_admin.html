@@ -2,8 +2,8 @@
 
 {% block rightcontent %}
 <div class="p-6">
-    <h1 class="text-2xl font-bold">Ring Settings</h1>
-    <p>Manage your ring settings here.</p>
+    <h1 class="text-2xl font-bold">Stone</h1>
+    <p>Manage your Stone here.</p>
     <a href="{% url 'add_stone' %}" class="mt-4 inline-block">
         <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Add Stone</button>
     </a>
@@ -12,7 +12,6 @@
             <tr>
                 <th>Name</th>
                 <th>Carat</th>
-                <th>Type</th>
                 <th>Shape</th>
                 <th>Price</th>
                 <th>Currency</th>
@@ -20,19 +19,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for ring in ring_settings %}
+            {% for stone in stones %}
             <tr>
-                <td>{{ ring.name }}</td>
-                <td>{{ ring.ring_settings }}</td>
-                <td>{{ ring.metal_type }}</td>
-                <td>{{ ring.shapes }}</td>
-                <td>{{ ring.price }}</td>
-                <td>{{ ring.currency }}</td>
+                <td>{{ stone.stone_name }}</td>
+                <td>{{ stone.stone_carat }}</td>
+                <td>{{ stone.stone_shape }}</td>
+                <td>{{ stone.stone_price }}</td>
+                <td>{{ stone.currency }}</td>
                 <td>
-                    <a href="{% url 'edit_ring' ring.id %}">
+                    <a href="{% url 'edit_stone' stone.id %}">
                         <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Edit</button>
                     </a>
-                    <a href="{% url 'delete_ring_setting' ring.id %}">
+                    <a href="{% url 'delete_stone' stone.id %}">
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </a>
                 </td>

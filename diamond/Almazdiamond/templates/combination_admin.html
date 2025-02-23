@@ -1,0 +1,37 @@
+{% extends 'admin_dashboard.html' %}
+
+{% block rightcontent %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold">Ring Stone Combinations</h1>
+    <!-- <p>Manage your ring settings here.</p> -->
+    <a href="{% url 'add_combination' %}" class="mt-4 inline-block">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Add Combination</button>
+    </a>
+    <table>
+        <thead>
+            <tr>
+                <th>Ring Setting</th>
+                <th>Stone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for combination in combinations %}
+            <tr>
+                <td>{{ combination.stone.stone_name }}</td>
+                <td>{{ combination.ring.name }}</td>
+                <td>{{combination.price}}</td>
+                <td>{{combination.currency}}</td>
+                
+                <td>
+                    <a href="{% url 'edit_combination' combination.id %}">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Edit</button>
+                    </a>
+                    <a href="{% url 'delete_combination' combination.id %}">
+                        <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</div>
+{% endblock rightcontent %}

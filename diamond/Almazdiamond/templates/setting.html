@@ -215,55 +215,16 @@
   </section>
   <nav class="ring-categories">
     <ul>
+      {%for i,j in settings%}
       <li>
         <a href="#">
           <!-- Replace with your icon/image URL -->
           <img src="{% static 'img/ringseting.png'%}" alt="Solitaire Icon">
-          <span>Solitaire</span>
+          <span>{{i}}</span>
         </a>
       </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Pave Icon">
-          <span>Pave</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Halo Icon">
-          <span>Halo</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Nature Icon">
-          <span>Nature</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Hidden Halo Icon">
-          <span>Hidden Halo</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Side Stone Icon">
-          <span>Side Stone</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Three Stone Icon">
-          <span>Three Stone</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="{% static 'img/ringseting.png'%}" alt="Vintage Icon">
-          <span>Vintage</span>
-        </a>
-      </li>
+      {%endfor%}
+     
     </ul>
   </nav>
   
@@ -273,12 +234,12 @@
   
   <div class="product-grid">
     <!-- Product Card 1 -->
-    {%for i in products%}
+    {%for i in ring_settings%}
     <div class="product-card" id="cards">
-      <img src="media/{{i.main_image}}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
+      <img src="{{i.image.url}}" alt="{{i.name}}" style="width:100px;height:100px"/>
       <h2>{{i.name}}</h2>
       <p class="price">{{i.currency}}  {{i.price}}</p>
-      <a href="#" class="view-details">View Details</a>
+      <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details">View Details</a>
     </div>
 {%endfor%}
     <!-- Product Card 2 -->
@@ -291,9 +252,7 @@
     <p>&copy; 2025 My Jewelry Store. All Rights Reserved.</p>
   </footer>
 <script>
-  document.getElementById('cards').addEventListener('click',()=>{
-    window.location.href=`/stone`;
-  })
+ 
 </script>
 </body>
 </html>
