@@ -1,5 +1,7 @@
 {% load static%}
-
+<div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
 <span>
     {%for i in stone_details%}
     <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
@@ -31,3 +33,6 @@
    <a href="#"><button>Buy Stone only</button></a>
    {%endif%}
 </span>
+<div id="footer-container">
+    {% include 'footer.html' %}
+</div>

@@ -145,7 +145,38 @@ body {
     
     padding: 10px;
 }
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+  }
 
+  .step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    margin: 0 1rem;
+    width: 30%;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    transition: all 0.3s;
+  }
+
+  .step.active {
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+  }
+
+  .step:hover {
+    border-color: #666;
+    background-color: #ddd;
+    color: #000;
+  }
 
 .landh4{
     font-family: system-ui;
