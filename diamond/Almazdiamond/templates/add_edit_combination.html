@@ -1,0 +1,51 @@
+{%extends 'admin_dashboard.html'%}
+{% block rightcontent %}
+<div class="p-6">
+<form action="{%if id %}{% url 'edit_combination' id %}{%else%}{% url 'add_combination'  %}{%endif%}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    
+    <span>
+        <label>Ring Setting</label>
+        <select name="ring_id">
+            {%for i in ring_settings%}
+            <option value="{{i.id}}"{%if combination.ring_id == i.id %}selected{%endif%}>{{i.name}}</option>
+            {%endfor%}
+        </select>
+    </span>
+    <span>
+        <label>Stone</label>
+        <select name="stone_id">
+            {%for i in stones%}
+            <option value="{{i.id}}"{%if combination.stone_id == i.id %}selected{%endif%}>{{i.stone_name}}</option>
+            {%endfor%}
+        </select>
+    </span>
+    
+        <label>Price</label>
+        <input type="text" name="price" id="price" class="form-control" 
+    {% if combination.price%}value="{{ combination.price }}"{% endif %} 
+    required pattern="^\d*\.?\d*$" title="Enter a valid number (e.g., 10 or 10.5)">
+
+    </span>
+    <span>
+        <label>Currency</label>
+        <select name="currency">
+            {%for i,j in currency%}
+            <option value="{{i}}"{%if combination.currency == i %}selected{%endif%}>{{j}}</option>
+            {%endfor%}
+        </select>
+    </span>
+    
+    <span>
+        <label>More Files(Image/Video)</label>
+        {%for i in combination_files%}
+        <p>{{i.files}}<a href="{%url 'delete_combination_files'  combination.id i.id%}" style="color: red;margin-left:10px">X</a></p><br>
+        {%endfor%}
+        <input type="file" name="files" id="files" class="form-control" {%if not combination_files%}required{%endif%} multiple>
+    </span>
+    <span>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Submit</button>
+    </span>
+</form>
+</div>
+{% endblock rightcontent %}

@@ -32,7 +32,7 @@
                     <img src="{% static 'img/ringseting.png'%}" alt="">
                     <div class="scndhead">RING SETTING</div>
                     <p class="scndp">Elevate your love story with our exquisite<br> collection of engagement ring designs</p>
-                    <button class="scndbtn">Start With a Setting</button>
+                    <button class="scndbtn" onclick="redirect_page('ring-settings')" >Start With a Setting</button>
                 </div>
                 <div>
                     <img src="{% static 'img/ringcenter.jpg'%}" alt=""  style="height: 85vh;">
@@ -41,7 +41,7 @@
                     <img src="{% static 'img/diamondseting.png'%}" alt="">
                     <div class="scndhead">CENTER STONE</div>
                     <p class="scndp">Explore our stunning diamond collection <br> and discover the brilliance in every choice.</p>
-                    <button class="scndbtn">Start With a Stone</button>
+                    <button class="scndbtn" onclick="redirect_page('stone')">Start With a Stone</button>
                 </div>
             </div>
         </div>
@@ -203,6 +203,10 @@
         {% include 'footer.html' %}
     </div>
 
-    
+    <script>
+        redirect_page=(page)=>{
+            window.location.href=`/${page}`;
+        }
+    </script>
 </body>
 </html>   

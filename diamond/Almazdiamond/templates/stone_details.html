@@ -1,0 +1,33 @@
+{% load static%}
+
+<span>
+    {%for i in stone_details%}
+    <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
+    
+
+    {%endfor%}
+</span>
+<span>
+    <h3>{{stone.stone_name}}</h3>
+    <p>{{stone.description}}</p>
+    <select name="stone_shape">
+        {%for i in stone_shapes%}
+        <option value='{{i.0}}' {%if i.0 == stone.stone_shape %}selected{%endif%}>{{i.0}}</option>
+        {%endfor%}
+    </select>
+    <ul>
+        {%for shape in ring_shapes%}
+
+        <li {%if shape.0 == ring.shapes %}{%else%}style="color: grey;"{%endif%}>{{shape.0}}</li>
+        {%endfor%}
+       </ul>
+<h5>Price : {{stone.stone_price}}</h5>
+</span>
+<span>
+    {%if ring_id%}
+    <a href="{%url 'combination_stone_ring'  stone.id ring_id%}"><button>Complete your ring</button></a>
+    {%else%}
+   <a href="{%url 'stone_ring_settings' stone.id %}"><button>Select Ring Setting</button></a>
+   <a href="#"><button>Buy Stone only</button></a>
+   {%endif%}
+</span>
