@@ -1,40 +1,723 @@
-{% load static%}
+{% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+    #footer-container {
+        position: relative;
+        top: 100px;
+    }
+
+    .ring_parent_2 {
+        display: flex;
+        justify-content: space-between;
+        width: 96%;
+        margin: 50px auto;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .ring_left_img {
+        width: 60%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .leftimg_own {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .ring_left_img img {
+        width: 49%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .ring_right {
+        width: 39%;
+        align-self: start;
+    }
+
+    /* Shape, Material, and Style Selection */
+    .shape-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .shape-box {
+        padding: 10px 15px;
+        border: 2px solid grey;
+        border-radius: 5px;
+        cursor: pointer;
+        color: grey;
+        transition: 0.3s;
+        text-align: center;
+        min-width: 60px;
+    }
+
+    .shape-box.active {
+        border-color: blue;
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+    }
+
+    .more-box {
+        padding: 10px 15px;
+        border: 2px dashed grey;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+    }
+
+    .more-box:hover {
+        background-color: lightgrey;
+    }
+
+    .hidden-boxes {
+        display: none;
+    }
+
+    .hidden-boxes.show {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .button-container {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px; /* Add space between buttons */
+        align-items: center; /* Center align buttons */
+    }
+    
+    .button-container a {
+        width: 80%; /* Adjust button width */
+        text-decoration: none; /* Remove underline */
+    }
+    
+    .button-container button {
+        width: 100%; /* Full width inside the container */
+        padding: 12px 20px; /* Adjust padding for better size */
+        border-radius: 50px; /* Rounded corners */
+        border: 2px solid #007bff; /* Border color */
+        background-color: white; /* White background */
+        color: #007bff; /* Text color */
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .button-container button:hover {
+        background-color: #007bff; /* Blue background on hover */
+        color: white; /* White text on hover */
+    }
+    .features-container {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-item i {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .feature-item p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+
+
+    .container {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .setting-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 350px;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .icon-clock {
+        margin-right: 10px;
+        color: gray;
+    }
+
+    .setting-section {
+        background: #f8f9fb;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: gray;
+        font-weight: bold;
+    }
+
+    .icon-width, 
+    .icon-profile, 
+    .icon-metal {
+        margin-right: 5px;
+    }
+
+    .section-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+        margin-top: 5px;
+    }
+
+    .section-description {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .metal-composition {
+        padding: 10px;
+    }
+
+    .extras-link {
+        font-size: 12px;
+        color: #007bff;
+        cursor: pointer;
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    .extras-link:hover {
+        text-decoration: underline;
+    }
+
+    .composition-chart {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .chart-item {
+        font-size: 12px;
+    }
+
+    .circle-shape {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .gold-color { background-color: gold; }
+    .copper-color { background-color: #b87333; }
+    .silver-color { background-color: silver; }
+    .zinc-color { background-color: #c0c0c0; }
+</style>
+<style>
+    .section-container {
+        
+        margin-top: 50px;
+        width: 90%;
+       
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 20px;
+    }
+
+    .ring-grid {
+        display: flex;
+        gap: 15px;
+        justify-content: space-between;
+    }
+
+    .ring-card {
+        background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    text-align: center;
+    width: 30%;
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    box-sizing: border-box;
+    }
+
+    .ring-image {
+        width: 100% !important;
+    height: 200px !important;
+    border-radius: 5px;
+    margin-top: 20%;
+}
+
+    .wishlist-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        background: white;
+        border-radius: 50%;
+        padding: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .wishlist-button i {
+        color: #aaa;
+        transition: color 0.3s ease;
+    }
+
+    .wishlist-button:hover i {
+        color: red;
+    }
+
+    .ring-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .ring-price {
+        font-size: 14px;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .metal-options {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .metal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid #ccc;
+    }
+
+    .gold { background-color: gold; }
+    .rose-gold { background-color: #b76e79; }
+    .silver { background-color: silver; }
+</style>
+<style>
+    .reviews-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .trustpilot-summary {
+        flex-shrink: 0;
+        width: 200px;
+    }
+
+    .trustpilot-summary h2 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .trustpilot-stars img {
+        width: 120px;
+    }
+
+    .trustpilot-link {
+        font-size: 14px;
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .review-slider {
+        display: flex;
+        overflow: hidden;
+        width: 800px;
+        position: relative;
+    }
+
+    .reviews {
+        display: flex;
+        gap: 15px;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .review-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        width: 250px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .stars {
+        color: green;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .review-text {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .review-author {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .arrow {
+        font-size: 20px;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+    }
+
+    .arrow:hover {
+        color: blue;
+    }
+</style>
 <div id="navbar-container">
     {% include 'navbar.html' %}
 </div>
+
 <div class="steps">
     <div class="step active">1. Select Setting</div>
     <div class="step">2. Select Stone</div>
     <div class="step">3. Complete Ring</div>
-  </div>
-<span>
-    {%for i in ring_details%}
-    <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
+</div>
+
+<div class="ring_parent_2">
+    <div class="ring_left_img">
+        <div class="leftimg_own">
+            {% for i in ring_details %}
+            <img src="{{ i.file.url }}" alt="Round Diamond Ring">
+        {% endfor %}
+        </div>
+        <div class="section-container">
+            <div class="section-title">Match Made in Heaven</div>
+    
+            <div class="ring-grid">
+                <div class="ring-card">
+                    <div class="wishlist-button"><i class="far fa-heart"></i></div>
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="The Lindsey" class="ring-image">
+                    <div class="ring-name">The Lindsey</div>
+                    <div class="ring-price">$1,650</div>
+                    <div class="metal-options">
+                        <span class="metal-dot silver"></span>
+                        <span class="metal-dot gold"></span>
+                        <span class="metal-dot rose-gold"></span>
+                    </div>
+                </div>
+    
+                <div class="ring-card">
+                    <div class="wishlist-button"><i class="far fa-heart"></i></div>
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="The Natalie" class="ring-image">
+                    <div class="ring-name">The Natalie</div>
+                    <div class="ring-price">$550</div>
+                    <div class="metal-options">
+                        <span class="metal-dot gold"></span>
+                        <span class="metal-dot silver"></span>
+                        <span class="metal-dot rose-gold"></span>
+                    </div>
+                </div>
+    
+                <div class="ring-card">
+                    <div class="wishlist-button"><i class="far fa-heart"></i></div>
+                    <img src="{% static 'img/ringcenter.jpg' %}" alt="1.5mm Helen" class="ring-image">
+                    <div class="ring-name">1.5mm Helen</div>
+                    <div class="ring-price">$1,150</div>
+                    <div class="metal-options">
+                        <span class="metal-dot silver"></span>
+                        <span class="metal-dot gold"></span>
+                        <span class="metal-dot rose-gold"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="ring_right">
+        <h2>{{ ring.name }}</h2>
+        <h3>Price : {{ ring.price }}</h3>
+        <p>{{ ring.description }}</p>
+
+        <!-- Shape Selection -->
+        <h4>Central Stone Shape</h4>
+        <div class="shape-container">
+            {% for shape in ring_shapes %}
+                {% if forloop.counter <= 4 %}
+                    <div class="shape-box {% if shape.0 == ring.shapes %}active{% endif %}">
+                        {{ shape.0 }}
+                    </div>
+                {% elif forloop.counter == 5 %}
+                    <div class="more-box" id="moreShapesBtn" onclick="toggleMore('moreShapes', 'moreShapesBtn')">+</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="hidden-boxes" id="moreShapes">
+            {% for shape in ring_shapes|slice:"4:" %}
+                <div class="shape-box {% if shape.0 == ring.shapes %}active{% endif %}">
+                    {{ shape.0 }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Material Selection -->
+        <h4>Material</h4>
+        <div class="shape-container">
+            {% for material in metal_types %}
+                {% if forloop.counter <= 4 %}
+                    <div class="shape-box {% if material.0 == ring.metal_type %}active{% endif %}">
+                        {{ material.0 }}
+                    </div>
+                {% elif forloop.counter == 5 %}
+                    <div class="more-box" id="moreMaterialsBtn" onclick="toggleMore('moreMaterials', 'moreMaterialsBtn')">+</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="hidden-boxes" id="moreMaterials">
+            {% for material in metal_types|slice:"4:" %}
+                <div class="shape-box {% if material.0 == ring.metal_type %}active{% endif %}">
+                    {{ material.0 }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Style Selection -->
+        <h4>Style</h4>
+        <div class="shape-container">
+            {% for style in setting_types %}
+                {% if forloop.counter <= 4 %}
+                    <div class="shape-box {% if style.0 == ring.ring_settings %}active{% endif %}">
+                        {{ style.0 }}
+                    </div>
+                {% elif forloop.counter == 5 %}
+                    <div class="more-box" id="moreStylesBtn" onclick="toggleMore('moreStyles', 'moreStylesBtn')">+</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="hidden-boxes" id="moreStyles">
+            {% for style in setting_types|slice:"4:" %}
+                <div class="shape-box {% if style.0 == ring.ring_settings %}active{% endif %}">
+                    {{ style.0 }}
+                </div>
+            {% endfor %}
+        </div><br>
+
+        <div class="button-container">
+            {% if stone_id %}
+                <a href="{% url 'combination_stone_ring' stone_id ring.id %}">
+                    <button>Complete your ring</button>
+                </a>
+            {% else %}
+                <a href="{% url 'ring_setting_stone' ring.id %}">
+                    <button>Select Stone</button>
+                </a>
+                <a href="#">
+                    <button>Buy setting only</button>
+                </a>
+            {% endif %}
+        </div><br>
+
+        <div class="features-container">
+            <div class="feature-item">
+                <i class="fas fa-plane"></i>
+                <p>Overnight<br>Shipping</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-award"></i>
+                <p>Lifetime<br>Warranty</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-hand-holding-dollar"></i>
+                <p>30 Days<br>Free Return</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-certificate"></i>
+                <p>Certificate<br>& Appraisal</p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="setting-card">
+                <div class="card-header">
+                    <i class="far fa-clock icon-clock"></i> Know your setting
+                </div>
+    
+                <div class="setting-section">
+                    <div class="section-header">
+                        <i class="fas fa-ruler icon-width"></i> WIDTH
+                    </div>
+                    <div class="section-value">1.8mm</div>
+                    <div class="section-description">Measured at the base of the ring</div>
+                </div>
+    
+                <div class="setting-section">
+                    <div class="section-header">
+                        <i class="fas fa-ring icon-profile"></i> PROFILE
+                    </div>
+                    <div class="section-value">High</div>
+                    <div class="section-description">Sits flush with a straight wedding band</div>
+                </div>
+    
+                <div class="setting-section metal-composition">
+                    <div class="section-header">
+                        <i class="fas fa-gem icon-metal"></i> METAL
+                    </div>
+                    <div class="section-value">14k Yellow Gold</div>
+                    <div class="composition-chart">
+                        <div class="chart-item"><span class="circle-shape gold-color"></span> 58.5% Gold</div>
+                        <div class="chart-item"><span class="circle-shape copper-color"></span> 30.5% Copper</div>
+                        <div class="chart-item"><span class="circle-shape silver-color"></span> 6.1% Silver</div>
+                        <div class="chart-item"><span class="circle-shape zinc-color"></span> 4.7% Zinc</div>
+                    </div>
+                    <div class="section-description">The secret sauce that makes this piece.</div>
+                </div>
+    
+                <div class="extras-link">Add Extra Features</div>
+            </div>
+        </div>
+
+    </div>
     
 
-    {%endfor%}
-</span>
-<span>  
-    <h3>{{ring.name}}</h3>
-    <p>{{ring.description}}</p>
-    <p>{{ring.shapes}}</p>
-    <ul>
-        {%for shape in ring_shapes%}
+</div>
+<div class="reviews-container">
+    <!-- Trustpilot Summary -->
+    <div class="trustpilot-summary">
+        <h2>Excellent</h2>
+        <div class="trustpilot-stars">
+            <img src="{% static 'img/tpstar.png' %}" alt="5-star rating">
+        </div>
+        <p>Based on <span class="trustpilot-link">912 reviews</span></p>
+        <img src="{% static 'img/tp.png' %}" alt="Trustpilot Logo" width="100">
+    </div>
 
-        <li {%if shape.0 == ring.shapes %}{%else%}style="color: grey;"{%endif%}>{{shape.0}}</li>
-        {%endfor%}
-       </ul>
-<h5>Price : {{ring.price}}</h5>
-</span>
-<span>
-    {%if stone_id%}
-    <a href="{%url 'combination_stone_ring' stone_id ring.id %}"><button>Complete your ring</button></a>
-    {%else%}
-   <a href="{%url 'ring_setting_stone' ring.id %}"><button>Select Stone</button></a>
-   <a href="#"><button>Buy setting only</button></a>
-   {%endif%}
-</span>
+    <!-- Left Arrow -->
+    <button class="arrow" id="prevBtn">&#10094;</button>
+
+    <!-- Review Slider -->
+    <div class="review-slider">
+        <div class="reviews">
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>✔ Verified</span></div>
+                <div class="review-text"><strong>Love it</strong><br>Purchased this ring on April 12, 2023...</div>
+                <div class="review-author">Angelica King, August 8</div>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>✔ Verified</span></div>
+                <div class="review-text"><strong>10/10</strong><br>I was nervous about buying online...</div>
+                <div class="review-author">Joshua F, August 6</div>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>✔ Verified</span></div>
+                <div class="review-text"><strong>Brought my dream ring to life</strong><br>Keyzar did an amazing job...</div>
+                <div class="review-author">Aaliyah, August 1</div>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>✔ Verified</span></div>
+                <div class="review-text"><strong>Great experience</strong><br>Was hesitant to order online...</div>
+                <div class="review-author">Brandon, August 1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Arrow -->
+    <button class="arrow" id="nextBtn">&#10095;</button>
+</div>
+
 <div id="footer-container">
     {% include 'footer.html' %}
 </div>
+
+<script>
+    function toggleMore(sectionId, buttonId) {
+        let section = document.getElementById(sectionId);
+        let button = document.getElementById(buttonId);
+
+        if (section.classList.contains("show")) {
+            section.classList.remove("show");
+            button.innerText = "+";
+        } else {
+            section.classList.add("show");
+            button.innerText = "-";
+        }
+    }
+</script>
+<script>
+    const reviewsContainer = document.querySelector('.reviews');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let scrollAmount = 0;
+
+    nextBtn.addEventListener('click', () => {
+        if (scrollAmount < 500) { 
+            scrollAmount += 265; 
+            reviewsContainer.style.transform = `translateX(-${scrollAmount}px)`;
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (scrollAmount > 0) { 
+            scrollAmount -= 265; 
+            reviewsContainer.style.transform = `translateX(-${scrollAmount}px)`;
+        }
+    });
+</script>

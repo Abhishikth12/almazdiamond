@@ -3,6 +3,8 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
 from django.urls import reverse
+from django.shortcuts import render, get_object_or_404
+from .models import RingDetails, RingSettings
 #Create your views here.
 def test_view(request):
     return render(request,'Homemain.html')
@@ -188,10 +190,22 @@ def ring_settings(request,stone_id=None):
     ring_settings=RingSettings.objects.all()
     return render(request,'setting.html',{"ring_settings":ring_settings,"settings":SETTING_TYPES,"stone_id":stone_id})
 
-def get_more_ring_details(request,id,stone_id=None):
-    ring_details=RingDetails.objects.filter(ring_id=id)
-    ring=RingSettings.objects.filter(id=id).first()
-    return render(request,'ring_details.html',{"ring_details":ring_details,"ring":ring,"ring_shapes":RING_SHAPES,"stone_id":stone_id})
+def get_more_ring_details(request, id, stone_id=None):
+    ring_details = RingDetails.objects.filter(ring_id=id)
+    ring = get_object_or_404(RingSettings, id=id)  # Fetch ring or return 404
+
+    return render(
+        request,
+        "ring_details.html",
+        {
+            "ring_details": ring_details,
+            "ring": ring,
+            "ring_shapes": RING_SHAPES,   # ✅ Already present
+            "metal_types": METAL_TYPES,   # ✅ Added this
+            "setting_types": SETTING_TYPES,  # ✅ Added this
+            "stone_id": stone_id,
+        },
+    )
 
 def combination_stone_ring(request,stone_id,ring_id):
     combination=Combination.objects.filter(stone_id=stone_id,ring_id=ring_id).first()

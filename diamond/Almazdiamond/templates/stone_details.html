@@ -1,38 +1,125 @@
-{% load static%}
+{% load static %}
 <div id="navbar-container">
     {% include 'navbar.html' %}
 </div>
-<span>
-    {%for i in stone_details%}
-    <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
-    
 
-    {%endfor%}
-</span>
-<span>
-    <h3>{{stone.stone_name}}</h3>
-    <p>{{stone.description}}</p>
-    <select name="stone_shape">
-        {%for i in stone_shapes%}
-        <option value='{{i.0}}' {%if i.0 == stone.stone_shape %}selected{%endif%}>{{i.0}}</option>
-        {%endfor%}
-    </select>
-    <ul>
-        {%for shape in ring_shapes%}
+<!-- Step Indicator (If applicable) -->
+<div class="step-indicator">
+    <div class="step active">1. Choose Your Stone</div>
+    <div class="step">2. Select a Ring Setting</div>
+    <div class="step">3. Complete Your Ring</div>
+</div>
 
-        <li {%if shape.0 == ring.shapes %}{%else%}style="color: grey;"{%endif%}>{{shape.0}}</li>
-        {%endfor%}
-       </ul>
-<h5>Price : {{stone.stone_price}}</h5>
-</span>
-<span>
-    {%if ring_id%}
-    <a href="{%url 'combination_stone_ring'  stone.id ring_id%}"><button>Complete your ring</button></a>
-    {%else%}
-   <a href="{%url 'stone_ring_settings' stone.id %}"><button>Select Ring Setting</button></a>
-   <a href="#"><button>Buy Stone only</button></a>
-   {%endif%}
-</span>
+<div class="stone-page-container">
+    <!-- Left Section: Stone Display -->
+    <div class="stone-display">
+        {% for i in stone_details %}
+        <img src="{{ i.file.url }}" alt="{{ stone.stone_name }}" class="stone-image"/>
+        {% endfor %}
+    </div>
+
+    <!-- Right Section: Stone Details & Customization -->
+    <div class="stone-details">
+        <h3>{{ stone.stone_name }}</h3>
+        <p>{{ stone.description }}</p>
+
+        <!-- Stone Shape Selection -->
+        <label for="stone_shape">Select Shape:</label>
+        <select name="stone_shape" id="stone_shape">
+            {% for i in stone_shapes %}
+            <option value="{{ i.0 }}" {% if i.0 == stone.stone_shape %}selected{% endif %}>{{ i.0 }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Available Ring Shapes -->
+        <h4>Compatible Ring Shapes:</h4>
+        <ul class="ring-shape-list">
+            {% for shape in ring_shapes %}
+            <li {% if shape.0 != ring.shapes %}class="disabled"{% endif %}>{{ shape.0 }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Price Display -->
+        <h5>Price: ₹{{ stone.stone_price }}</h5>
+
+        <!-- Purchase Options -->
+        <div class="purchase-options">
+            {% if ring_id %}
+            <a href="{% url 'combination_stone_ring' stone.id ring_id %}">
+                <button class="btn-primary">Complete Your Ring</button>
+            </a>
+            {% else %}
+            <a href="{% url 'stone_ring_settings' stone.id %}">
+                <button class="btn-primary">Select Ring Setting</button>
+            </a>
+            <a href="#">
+                <button class="btn-secondary">Buy Stone Only</button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 <div id="footer-container">
     {% include 'footer.html' %}
 </div>
+
+<style>
+    .stone-page-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .stone-display {
+        width: 40%;
+        text-align: center;
+    }
+
+    .stone-image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .stone-details {
+        width: 55%;
+    }
+
+    .ring-shape-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .ring-shape-list li {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .ring-shape-list .disabled {
+        color: grey;
+    }
+
+    .purchase-options {
+        margin-top: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #f8f9fa;
+        color: black;
+        padding: 10px 15px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+</style>
