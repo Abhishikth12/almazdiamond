@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Stones</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
     /* Reset some default styles */
     * {
@@ -209,7 +210,11 @@
   <div id="navbar-container">
     {% include 'navbar.html' %}
 </div>
-
+<div class="steps">
+  <div class="step ">1. Select Setting</div>
+  <div class="step active">2. Select Stone</div>
+  <div class="step">3. Complete Ring</div>
+</div>
   <!-- Hero Section -->
   <section class="collection-hero">
     <h1>Stones</h1>

@@ -8,14 +8,15 @@
     <div class="step">2. Select Stone</div>
     <div class="step">3. Complete Ring</div>
   </div>
-<span>
+<div style="display: flex;"> 
+<div>
     {%for i in ring_details%}
     <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
     
 
     {%endfor%}
-</span>
-<span>  
+</div>
+<div>  
     <h3>{{ring.name}}</h3>
     <p>{{ring.description}}</p>
     <p>{{ring.shapes}}</p>
@@ -26,15 +27,17 @@
         {%endfor%}
        </ul>
 <h5>Price : {{ring.price}}</h5>
-</span>
-<span>
-    {%if stone_id%}
-    <a href="{%url 'combination_stone_ring' stone_id ring.id %}"><button>Complete your ring</button></a>
-    {%else%}
-   <a href="{%url 'ring_setting_stone' ring.id %}"><button>Select Stone</button></a>
-   <a href="#"><button>Buy setting only</button></a>
-   {%endif%}
-</span>
+   
+    <div>
+        {%if stone_id%}
+        <a href="{%url 'combination_stone_ring' stone_id ring.id %}"><button>Complete your ring</button></a>
+        {%else%}
+    <a href="{%url 'ring_setting_stone' ring.id %}"><button>Select Stone</button></a>
+    <a href="#"><button>Buy setting only</button></a>
+    {%endif%}
+    </div>
+</div>
+</div>
 <div id="footer-container">
     {% include 'footer.html' %}
 </div>
