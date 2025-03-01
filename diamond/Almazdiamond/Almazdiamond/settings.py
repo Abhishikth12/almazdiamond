@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Almazdiamondmo_app'
+    'Almazdiamondmo_app',
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
