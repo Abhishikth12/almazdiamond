@@ -428,6 +428,45 @@
     .arrow:hover {
         color: blue;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    .viewer-container {
+        width: 500px;
+        height: 300px;
+        overflow: hidden;
+        cursor: grab;
+        position: relative;
+    }
+    
+    #viewer-image {
+        width: 100%;
+        height: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+    
+    .loading-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        display: none;
+    }
 </style>
 <div id="navbar-container">
     {% include 'navbar.html' %}
@@ -443,9 +482,14 @@
 <div class="ring_parent_2">
     <div class="ring_left_img">
         <div class="leftimg_own">
+            <div class="viewer-container">
+                <img id="viewer-image" src="/static/img/360/1.png" alt="360 View"> 
+                <div id="loading" class="loading-indicator">Loading...</div>
+            </div>
+        
             {% for i in ring_details %}
             <img src="{{ i.file.url }}" alt="Round Diamond Ring">
-        {% endfor %}
+            {% endfor %}
         </div>
         <div class="section-container">
             <div class="section-title">Match Made in Heaven</div>
@@ -684,37 +728,8 @@
     <button class="arrow" id="nextBtn">&#10095;</button>
 </div>
 
-  </div>
-<div style="display: flex;"> 
-<div>
-    {%for i in ring_details%}
-    <img src="{{ i.file.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
-    
 
-    {%endfor%}
-</div>
-<div>  
-    <h3>{{ring.name}}</h3>
-    <p>{{ring.description}}</p>
-    <p>{{ring.shapes}}</p>
-    <ul>
-        {%for shape in ring_shapes%}
 
-        <li {%if shape.0 == ring.shapes %}{%else%}style="color: grey;"{%endif%}>{{shape.0}}</li>
-        {%endfor%}
-       </ul>
-<h5>Price : {{ring.price}}</h5>
-   
-    <div>
-        {%if stone_id%}
-        <a href="{%url 'combination_stone_ring' stone_id ring.id %}"><button>Complete your ring</button></a>
-        {%else%}
-    <a href="{%url 'ring_setting_stone' ring.id %}"><button>Select Stone</button></a>
-    <a href="#"><button>Buy setting only</button></a>
-    {%endif%}
-    </div>
-</div>
-</div>
 
 <div id="footer-container">
     {% include 'footer.html' %}
@@ -753,4 +768,151 @@
             reviewsContainer.style.transform = `translateX(-${scrollAmount}px)`;
         }
     });
+</script>
+
+
+
+<script>
+    // Configuration
+    const config = {
+        totalFrames: 36,
+        imageFolder: '/static/img/360',
+        imageExtension: 'png',
+        sensitivity: 15,  // Higher = less sensitive rotation
+        preloadImages: true,
+        touchEnabled: true
+    };
+
+    // Elements
+    const image = document.getElementById("viewer-image");
+    const loadingIndicator = document.getElementById("loading");
+    
+    // State variables
+    let currentFrame = 1;
+    let isDragging = false;
+    let startX = 0;
+    let lastMoveTime = 0;
+    let lastFrameChange = 0;
+    let imageCache = {};
+    
+    // Preload images for smoother experience
+    if (config.preloadImages) {
+        loadingIndicator.style.display = 'block';
+        let loaded = 0;
+        
+        for (let i = 1; i <= config.totalFrames; i++) {
+            const img = new Image();
+            img.onload = () => {
+                imageCache[i] = img;
+                loaded++;
+                if (loaded === config.totalFrames) {
+                    loadingIndicator.style.display = 'none';
+                }
+            };
+            img.src = `${config.imageFolder}/${i}.${config.imageExtension}`;
+        }
+    }
+
+    // Update current frame and display
+    function updateImage(frameNumber) {
+        // Ensure frame is within range
+        if (frameNumber < 1) frameNumber = config.totalFrames;
+        if (frameNumber > config.totalFrames) frameNumber = 1;
+        
+        // Update only if frame has changed
+        if (frameNumber !== currentFrame) {
+            currentFrame = frameNumber;
+            
+            if (imageCache[frameNumber]) {
+                image.src = imageCache[frameNumber].src;
+            } else {
+                image.src = `${config.imageFolder}/${frameNumber}.${config.imageExtension}`;
+            }
+        }
+    }
+
+    // Calculate frame change based on movement
+    function calculateFrameChange(moveX) {
+        // Throttle frame changes for smoother rotation
+        const now = Date.now();
+        if (now - lastMoveTime < 16) return 0; // ~60fps limit
+        
+        const frameChange = Math.floor(moveX / config.sensitivity);
+        if (frameChange !== 0) {
+            lastMoveTime = now;
+            lastFrameChange = frameChange;
+            return frameChange;
+        }
+        return 0;
+    }
+
+    // Mouse events
+    image.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        isDragging = true;
+        startX = e.clientX;
+        image.style.cursor = "grabbing";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        
+        const moveX = e.clientX - startX;
+        const frameChange = calculateFrameChange(moveX);
+        
+        if (frameChange !== 0) {
+            startX = e.clientX;
+            let newFrame = currentFrame - frameChange; // Reverse direction for natural feel
+            
+            // Handle looping
+            if (newFrame > config.totalFrames) newFrame = 1;
+            if (newFrame < 1) newFrame = config.totalFrames;
+            
+            updateImage(newFrame);
+        }
+    });
+
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        image.style.cursor = "grab";
+    });
+    
+    window.addEventListener("mouseleave", () => {
+        isDragging = false;
+        image.style.cursor = "grab";
+    });
+
+    // Touch events for mobile support
+    if (config.touchEnabled) {
+        image.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            isDragging = true;
+            startX = e.touches[0].clientX;
+        });
+
+        window.addEventListener("touchmove", (e) => {
+            if (!isDragging) return;
+            
+            const moveX = e.touches[0].clientX - startX;
+            const frameChange = calculateFrameChange(moveX);
+            
+            if (frameChange !== 0) {
+                startX = e.touches[0].clientX;
+                let newFrame = currentFrame - frameChange;
+                
+                // Handle looping
+                if (newFrame > config.totalFrames) newFrame = 1;
+                if (newFrame < 1) newFrame = config.totalFrames;
+                
+                updateImage(newFrame);
+            }
+        });
+
+        window.addEventListener("touchend", () => {
+            isDragging = false;
+        });
+    }
+
+    // Prevent context menu on right-click
+    image.addEventListener("contextmenu", (e) => e.preventDefault());
 </script>
