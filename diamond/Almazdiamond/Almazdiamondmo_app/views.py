@@ -310,10 +310,25 @@ def get_more_ring_details(request, id=None, stone_id=None):
     )
 def combination_stone_ring(request,stone_id,ring_id):
     # ring_id=Ring_setting_variants.objects.filter(ring_id=ring_id).first().ring_id
-    combination=Combination.objects.filter(stone_id=stone_id,ring_variant_id=ring_id).first()
-    combination_details=CombinationFiles.objects.filter(combination_id=combination)
-    print(combination_details,"lll")
-    return render(request,'combination_stone_ring.html',{"combination":combination,"combination_details":combination_details,"stone_id":stone_id,"ring_id":ring_id})
+    # combination=Combination.objects.filter(stone_id=stone_id,ring_variant_id=ring_id).first()
+    # if combination:
+    #     ring_images=combination.ring_variant.ring_details.all()
+    # combination_details=CombinationFiles.objects.filter(combination_id=combination)
+    # print(combination_details,"lll")
+    ring_variant=stone=None
+    ring_variant=Ring_setting_variants.objects.filter(id=ring_id).first()
+    if ring_variant:
+        ring_details=RingDetails.objects.filter(ring_variant=ring_variant)
+        if ring_details.exists():
+            ring_details=ring_details[:2]
+    stone=Stone.objects.filter(id=stone_id).first()
+    if stone:
+        stone_details=StoneDetails.objects.filter(stone=stone)
+        if stone_details.exists():
+            stone_details=stone_details[:2]
+
+
+    return render(request,'combination_stone_ring.html',{"ring_variant":ring_variant,"stone":stone,"stone_details":stone_details,"ring_details":ring_details,"stone_id":stone_id,"ring_id":ring_id,"total":ring_variant.price+stone.stone_price})
 
 def stones(request,ring_id=None):
     stones=Stone.objects.all()
