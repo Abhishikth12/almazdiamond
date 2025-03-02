@@ -9,6 +9,126 @@
 
 <!-- Step Indicator (If applicable) -->
 <div class="steps">
+    <div class="step ">1. Select Setting</div>
+    <div class="step ">2. Select Stone</div>
+    <div class="step active">3. Complete Ring</div>
+  </div>
+<span>
+    {%for i in combination_details%}
+    <img src="{{ i.files.url }}" alt="Round Diamond Ring" style="width:100px;height:100px"/>
+    {%endfor%}
+    <p>{{combination.price}}</p>
+</span>
+<div class="section-container">
+    <div class="section-title">Match Made in Heaven</div>
+
+    <div class="ring-grid">
+        <div class="ring-card">
+            <div class="wishlist-button"><i class="far fa-heart"></i></div>
+            <img src="{% static 'img/ringcenter.jpg' %}" alt="The Lindsey" class="ring-image">
+            <div class="ring-name">The Lindsey</div>
+            <div class="ring-price">$1,650</div>
+            <div class="metal-options">
+                <span class="metal-dot silver"></span>
+                <span class="metal-dot gold"></span>
+                <span class="metal-dot rose-gold"></span>
+            </div>
+        </div>
+
+        <div class="ring-card">
+            <div class="wishlist-button"><i class="far fa-heart"></i></div>
+            <img src="{% static 'img/ringcenter.jpg' %}" alt="The Natalie" class="ring-image">
+            <div class="ring-name">The Natalie</div>
+            <div class="ring-price">$550</div>
+            <div class="metal-options">
+                <span class="metal-dot gold"></span>
+                <span class="metal-dot silver"></span>
+                <span class="metal-dot rose-gold"></span>
+            </div>
+        </div>
+
+        <div class="ring-card">
+            <div class="wishlist-button"><i class="far fa-heart"></i></div>
+            <img src="{% static 'img/ringcenter.jpg' %}" alt="1.5mm Helen" class="ring-image">
+            <div class="ring-name">1.5mm Helen</div>
+            <div class="ring-price">$1,150</div>
+            <div class="metal-options">
+                <span class="metal-dot silver"></span>
+                <span class="metal-dot gold"></span>
+                <span class="metal-dot rose-gold"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="review-slider">
+    <div class="reviews">
+        <div class="review-card">
+            <div class="stars">★★★★★ <span>✔ Verified</span></div>
+            <div class="review-text"><strong>Love it</strong><br>Purchased this ring on April 12, 2023...</div>
+            <div class="review-author">Angelica King, August 8</div>
+        </div>
+
+        <div class="review-card">
+            <div class="stars">★★★★★ <span>✔ Verified</span></div>
+            <div class="review-text"><strong>10/10</strong><br>I was nervous about buying online...</div>
+            <div class="review-author">Joshua F, August 6</div>
+        </div>
+
+        <div class="review-card">
+            <div class="stars">★★★★★ <span>✔ Verified</span></div>
+            <div class="review-text"><strong>Brought my dream ring to life</strong><br>Keyzar did an amazing job...</div>
+            <div class="review-author">Aaliyah, August 1</div>
+        </div>
+
+        <div class="review-card">
+            <div class="stars">★★★★★ <span>✔ Verified</span></div>
+            <div class="review-text"><strong>Great experience</strong><br>Was hesitant to order online...</div>
+            <div class="review-author">Brandon, August 1</div>
+        </div>
+    </div>
+</div>
+
+<div class="ringbannerfooter"> 
+    <div style="padding:7%;">
+        <h2 style="font-size: 28px;font-family: cursive;"> Get In Touch</h2>
+    <h5 style="font-size: 20px;font-family: system-ui;font-weight: 400;">We are here to help you find <br>the one for you. Set a personal <br>appointment with our experts.</h5>
+</div>
+</div>
+<div class="ringbannerfooter2"> 
+    <div style="padding:10%;text-align:end;color:#fff;">
+        <h2 style="font-size: 28px;font-family: cursive;"> Our Work</h2>
+    <h5 style="font-size: 20px;font-family: system-ui;font-weight: 400;">We want your jewelry to be flawless and <br>perfect in every detail. That’s why we take the time<br> to hand-craft it individually.</h5>
+</div>
+</div>
+<div style="margin-bottom:-7%;">
+<div class="newsletter-section">
+    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+    <div class="newsletter-form">
+        <input type="email" placeholder="ENTER YOUR EMAIL">
+        <button>SUBSCRIBE</button>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="feature">
+        <img src="{% static 'img/footer11.png'%}" alt="Worldwide Delivery">
+        <h3>Worldwide Delivery</h3>
+        <p>Overnight Complimentary Shipping</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="{% static 'img/footer22.png'%}" alt="Returns Within 30 Days">
+        <h3>Returns Within 30 Days</h3>
+        <p>Satisfaction Guaranteed</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="{% static 'img/footer33.png'%}" alt="Lifetime Warranty">
+        <h3>Lifetime Warranty</h3>
+        <p>Shop With Confidence</p>
+    </div>
+</div>
+</div>
     <div class="step">1. Select Setting</div>
     <div class="step active">2. Select Stone</div>
     <div class="step ">3. Complete Ring</div>
