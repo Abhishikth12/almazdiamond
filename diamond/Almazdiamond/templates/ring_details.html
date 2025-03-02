@@ -18,7 +18,7 @@
     }
 
     .ring_left_img {
-        width: 60%;
+        width: 55%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -38,7 +38,7 @@
     }
 
     .ring_right {
-        width: 39%;
+        width: 41%;
         align-self: start;
     }
 
@@ -51,9 +51,9 @@
     }
 
     .shape-box {
-        padding: 10px 15px;
+        padding: 12px 12px;
         border: 2px solid grey;
-        border-radius: 5px;
+        border-radius: 24px;
         cursor: pointer;
         color: grey;
         transition: 0.3s;
@@ -62,8 +62,8 @@
     }
 
     .shape-box.active {
-        border-color: blue;
-        background-color: blue;
+        border-color: #3d59ab;
+        background-color: #3d59ab;
         color: white;
         font-weight: bold;
     }
@@ -93,16 +93,17 @@
     .hidden-boxes.show {
         display: flex;
         flex-wrap: wrap;
+        gap:10px;
     }
     .button-container {
         display: flex;
         flex-direction: column; /* Stack buttons vertically */
-        gap: 10px; /* Add space between buttons */
-        align-items: center; /* Center align buttons */
+        gap: 22px; /* Add space between buttons */
+        
     }
     
     .button-container a {
-        width: 80%; /* Adjust button width */
+        width: 88%; /* Adjust button width */
         text-decoration: none; /* Remove underline */
     }
     
@@ -110,22 +111,23 @@
         width: 100%; /* Full width inside the container */
         padding: 12px 20px; /* Adjust padding for better size */
         border-radius: 50px; /* Rounded corners */
-        border: 2px solid #007bff; /* Border color */
-        background-color: white; /* White background */
-        color: #007bff; /* Text color */
+        border: 2px solid black; /* Border color */
+        background-color: black; /* White background */
+        color: white; /* Text color */
         font-size: 16px;
         font-weight: bold;
         cursor: pointer;
         transition: 0.3s;
     }
     
+    
     .button-container button:hover {
-        background-color: #007bff; /* Blue background on hover */
+        background-color: black; /* Blue background on hover */
         color: white; /* White text on hover */
     }
     .features-container {
         display: flex;
-        justify-content: center;
+        margin-left: 6%;
         gap: 50px;
         padding: 20px;
         text-align: center;
@@ -145,18 +147,18 @@
     .feature-item p {
         margin: 0;
         font-size: 14px;
-        font-weight: bold;
+       
     }
 
 
 
     .container {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fb;
+        
         display: flex;
-        justify-content: center;
+        
         align-items: center;
-        height: 100vh;
+        height: 70vh;
     }
 
     .setting-card {
@@ -253,8 +255,7 @@
     .copper-color { background-color: #b87333; }
     .silver-color { background-color: silver; }
     .zinc-color { background-color: #c0c0c0; }
-</style>
-<style>
+
     .section-container {
         
         margin-top: 50px;
@@ -347,14 +348,14 @@
     .gold { background-color: gold; }
     .rose-gold { background-color: #b76e79; }
     .silver { background-color: silver; }
-</style>
-<style>
+
     .reviews-container {
         display: flex;
         align-items: center;
         gap: 20px;
         max-width: 1100px;
         margin: auto;
+        padding: 25px;
     }
 
     .trustpilot-summary {
@@ -457,6 +458,18 @@
         font-size: 12px;
         display: none;
     }
+    .description1 {
+        width: 100%; 
+        max-width: 500px; 
+        line-height: 25px;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        font-size: 16px;
+        color: #333;
+        word-wrap: break-word;
+       font-family: system-ui;
+    }
+    
 </style>
 <div id="navbar-container">
     {% include 'navbar.html' %}
@@ -526,9 +539,10 @@
     </div>
 
     <div class="ring_right">
-        <h2>{{ ring.ring.name }}</h2>
-        <h3>Price : {{ ring.price }}</h3>
-        <p>{{ ring.description }}</p>
+        <h2 style="font-family: system-ui;font-size: 20px;font-weight:600;">{{ ring.ring.name }}</h2>
+        <h3 style="font-family: system-ui;font-size: 18px;font-weight:500;">Price : {{ ring.price }}</h3>
+        <p class="description1">{{ ring.description }}</p>
+
 
         <!-- Shape Selection -->
         <div>
@@ -707,7 +721,47 @@
     <button class="arrow" id="nextBtn">&#10095;</button>
 </div>
 
+<div class="ringbannerfooter"> 
+    <div style="padding:7%;">
+        <h2 style="font-size: 28px;font-family: cursive;"> Get In Touch</h2>
+    <h5 style="font-size: 20px;font-family: system-ui;font-weight: 400;">We are here to help you find <br>the one for you. Set a personal <br>appointment with our experts.</h5>
+</div>
+</div>
+<div class="ringbannerfooter2"> 
+    <div style="padding:10%;text-align:end;color:#fff;">
+        <h2 style="font-size: 28px;font-family: cursive;"> Our Work</h2>
+    <h5 style="font-size: 20px;font-family: system-ui;font-weight: 400;">We want your jewelry to be flawless and <br>perfect in every detail. That’s why we take the time<br> to hand-craft it individually.</h5>
+</div>
+</div>
+<div style="margin-bottom:-7%;">
+<div class="newsletter-section">
+    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+    <div class="newsletter-form">
+        <input type="email" placeholder="ENTER YOUR EMAIL">
+        <button>SUBSCRIBE</button>
+    </div>
+</div>
 
+<div class="features-section">
+    <div class="feature">
+        <img src="{% static 'img/footer11.png'%}" alt="Worldwide Delivery">
+        <h3>Worldwide Delivery</h3>
+        <p>Overnight Complimentary Shipping</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="{% static 'img/footer22.png'%}" alt="Returns Within 30 Days">
+        <h3>Returns Within 30 Days</h3>
+        <p>Satisfaction Guaranteed</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="{% static 'img/footer33.png'%}" alt="Lifetime Warranty">
+        <h3>Lifetime Warranty</h3>
+        <p>Shop With Confidence</p>
+    </div>
+</div>
+</div>
 
 
 <div id="footer-container">
