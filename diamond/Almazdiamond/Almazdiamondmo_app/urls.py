@@ -42,5 +42,5 @@ urlpatterns=[
     path('serach_ring_details/<int:stone_id>',views.get_more_ring_details,name='serach_ring_details'),
     
     path('serach_stones',views.stones,name='serach_stones'),
-    path('api/ring_setting_filter_api',views.ring_setting_filter_api,name='ring_setting_filter_api'),
+    # path('api/ring_setting_filter_api',views.ring_setting_filter_api,name='ring_setting_filter_api'),
 ]

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
-from rest_framework.decorators import api_view
+# from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework.response import Response
 import requests
@@ -221,27 +221,27 @@ def delete_combination_files(request,c_id,id):
             combinationfile.delete()
     return redirect(reverse('edit_combination',kwargs={"id":c_id}))
 
-def ring_setting_api(request,varient_id=None):
-    api_url = f"{DomainName}api/ring_setting_filter_api"
-    params = {}
-    if request.GET.get('ring_settings'):
-        params['ring_settings'] = request.GET['ring_settings']
-    if request.GET.get('metal_type'):
-        params['metal_type'] = request.GET['metal_type']
-    if request.GET.get('shapes'):
-        params['shapes'] = request.GET['shapes']
-    if request.GET.get('price_min'):
-        params['price_min'] = request.GET['price_min']
-    if request.GET.get('price_max'):
-        params['price_max'] = request.GET['price_max']
-    if request.GET.get('currency'):
-        params['currency'] = request.GET['currency']
-    if varient_id:
-        params['varient_id']=varient_id
+# def ring_setting_api(request,varient_id=None):
+#     api_url = f"{DomainName}api/ring_setting_filter_api"
+#     params = {}
+#     if request.GET.get('ring_settings'):
+#         params['ring_settings'] = request.GET['ring_settings']
+#     if request.GET.get('metal_type'):
+#         params['metal_type'] = request.GET['metal_type']
+#     if request.GET.get('shapes'):
+#         params['shapes'] = request.GET['shapes']
+#     if request.GET.get('price_min'):
+#         params['price_min'] = request.GET['price_min']
+#     if request.GET.get('price_max'):
+#         params['price_max'] = request.GET['price_max']
+#     if request.GET.get('currency'):
+#         params['currency'] = request.GET['currency']
+#     if varient_id:
+#         params['varient_id']=varient_id
 
-    # Call the API
-    response = requests.get(api_url, params=params)
-    return response
+#     # Call the API
+#     response = requests.get(api_url, params=params)
+#     return response
 def ring_settings(request,stone_id=None):
     ring_variants=Ring_setting_variants.objects.all()
     if 'ring_settings' in request.GET:
@@ -338,8 +338,8 @@ def get_more_stone_details(request,id,ring_id=None):
 
 
 
-@api_view(['GET'])
-def ring_setting_filter_api(request):
+# @api_view(['GET'])
+# def ring_setting_filter_api(request):
     query = Q()
     varient_id=None
     rings=serializer=None
