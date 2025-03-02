@@ -11,57 +11,7 @@
         <label>Description</label>
         <textarea name="description" name="description" id="description" class="form-control" required>{%if ring_settings.description%}{{ring_settings.description}}{%endif%}</textarea>
     </span>
-    <span>
-        <label>Setting</label>
-        <select name="ring_settings">
-            {%for i,j in setting_types%}
-            <option value="{{i}}"{%if ring_settings.ring_settings == i %}selected{%endif%}>{{j}}</option>
-            {%endfor%}
-        </select>
-    </span>
-    <span>
-        <label>Metal Type</label>
-        <select name="metal_type">
-            {%for i,j in metal_types%}
-            <option value="{{i}}"{%if ring_settings.metal_type == i %}selected{%endif%}>{{j}}</option>
-            {%endfor%}
-        </select>
-    </span>
-    <span>
-        <label>Ring Shape</label>
-        <select name="shapes">
-            {%for i,j in ring_shapes%}
-            <option value="{{i}}"{%if ring_settings.shapes == i %}selected{%endif%}>{{j}}</option>
-            {%endfor%}
-        </select>
-    </span>
-    <span>
-        <label>Price</label>
-        <input type="text" name="price" id="price" class="form-control" 
-    {% if ring_settings.price %}value="{{ ring_settings.price }}"{% endif %} 
-    required pattern="^\d*\.?\d*$" title="Enter a valid number (e.g., 10 or 10.5)">
-
-    </span>
-    <span>
-        <label>Currency</label>
-        <select name="currency">
-            {%for i,j in currency%}
-            <option value="{{i}}"{%if ring_settings.currency == i %}selected{%endif%}>{{j}}</option>
-            {%endfor%}
-        </select>
-    </span>
-    <span>
-        <label>Image(will display as thumbnail)</label>
-        <p>{%if ring_settings.image%}{{ring_settings.image}} <a href="{%url 'delete_image' ring_settings.id %}" style="color: red;margin-left:10px">X</a></p>{%endif%}</p>
-        <input type="file" name="image" id="image" class="form-control"  {%if ring_settings.image%}requiredvalue="{{ring_settings.image}}"{%endif%}>
-    </span>
-    <span>
-        <label>More Files(Image/Video)</label>
-        {%for i in ring_details%}
-        <p>{{i.file}}<a href="{%url 'delete_files'  ring_settings.id i.id%}" style="color: red;margin-left:10px">X</a></p><br>
-        {%endfor%}
-        <input type="file" name="files" id="files" class="form-control" {%if not ring_details%}required{%endif%} multiple>
-    </span>
+    
     <span>
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Submit</button>
     </span>

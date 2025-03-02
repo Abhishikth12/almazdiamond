@@ -394,7 +394,7 @@
     <ul>
       {% for i in stone_shapes %}
       <li>
-        <a href="#">
+        <a onclick="filter('stone_shape','{{i.0}}')">
           <img src="{% static 'img/ringseting.png'%}" alt="Shape Icon">
           <span>{{i.0}}</span>
         </a>
@@ -478,5 +478,46 @@
       });
     });
   </script>
+  
+  <script>
+    // Function to handle selection and update filters in URL
+    function filter(category, value) {
+        let params = new URLSearchParams(window.location.search); // Get current URL parameters
+
+        // Update the selected category in the parameters
+        if (params.get(category) === value) {
+            params.delete(category); // Remove if same value is clicked again (toggle behavior)
+        } else {
+            params.set(category, value); // Set new selected value
+        }
+
+        // Redirect to updated URL with new filters
+        window.location.href = window.location.pathname + "?" + params.toString();
+    }
+
+    // Function to handle selection for Stone Cut, Clarity, etc.
+    function selectFilter(element, category) {
+        // Remove 'active' class from all items in the same category
+        element.parentNode.querySelectorAll(".selection-item").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        // Add 'active' class to clicked item
+        element.classList.add("active");
+
+        // Update filter in URL
+        filter(category, element.textContent.trim());
+    }
+
+    // Attach event listeners to selection items
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".selection-item").forEach(item => {
+            item.addEventListener("click", function () {
+                selectFilter(this, this.parentNode.previousElementSibling.textContent.trim().toLowerCase().replace(/\s+/g, '_'));
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

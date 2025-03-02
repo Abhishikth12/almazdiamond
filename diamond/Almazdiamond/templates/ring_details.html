@@ -526,87 +526,76 @@
     </div>
 
     <div class="ring_right">
-        <h2>{{ ring.name }}</h2>
+        <h2>{{ ring.ring.name }}</h2>
         <h3>Price : {{ ring.price }}</h3>
         <p>{{ ring.description }}</p>
 
         <!-- Shape Selection -->
-        <h4>Central Stone Shape</h4>
-        <div class="shape-container">
-            {% for shape in ring_shapes %}
-                {% if forloop.counter <= 4 %}
-                    <div class="shape-box {% if shape.0 == ring.shapes %}active{% endif %}">
-                        {{ shape.0 }}
-                    </div>
-                {% elif forloop.counter == 5 %}
-                    <div class="more-box" id="moreShapesBtn" onclick="toggleMore('moreShapes', 'moreShapesBtn')">+</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="hidden-boxes" id="moreShapes">
-            {% for shape in ring_shapes|slice:"4:" %}
-                <div class="shape-box {% if shape.0 == ring.shapes %}active{% endif %}">
-                    {{ shape.0 }}
+        <div>
+            <h4>Central Stone Shape</h4>
+            <div class="shape-container" id="filter-shapes">
+               
+                    {% for shape in ring_shapes %}
+                        {% if forloop.counter <= 4 %}
+                            <div class="shape-box {% if shape == ring.shapes %}active{% endif %}"onclick="filter_options(this,'{{ring.ring.id}}','shapes','{{shape}}','{{stone_id}}')">
+                                {{ shape }}
+                            </div>
+                        {% elif forloop.counter == 5 %}
+                            <div class="more-box" id="moreShapesBtn" onclick="toggleMore('moreShapes', 'moreShapesBtn')">+</div>
+                        {% endif %}
+                    {% endfor %}
+                
+                <div class="filter-options" id="moreShapes">
+                    {% for shape in ring_shapes|slice:"4:" %}
+                        <div class="fshape-box {% if shape == ring.shapes %}active{% endif %}"onclick="filter_options(this,'{{ring.ring.id}}','shapes','{{shape}}','{{stone_id}}')">
+                            {{ shape }}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-
-        <!-- Material Selection -->
-        <h4>Material</h4>
-        <div class="shape-container">
-            {% for material in metal_types %}
-                {% if forloop.counter <= 4 %}
-                    <div class="shape-box {% if material.0 == ring.metal_type %}active{% endif %}">
-                        {{ material.0 }}
-                    </div>
-                {% elif forloop.counter == 5 %}
-                    <div class="more-box" id="moreMaterialsBtn" onclick="toggleMore('moreMaterials', 'moreMaterialsBtn')">+</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="hidden-boxes" id="moreMaterials">
-            {% for material in metal_types|slice:"4:" %}
-                <div class="shape-box {% if material.0 == ring.metal_type %}active{% endif %}">
-                    {{ material.0 }}
+            </div>
+            
+            <h4>Material</h4>
+            <div class="shape-container" id="filter-materials">
+                    {% for material in metal_types %}
+                        {% if forloop.counter <= 4 %}
+                            <div class="shape-box  {% if material == ring.metal_type %}active{% endif %}"onclick="filter_options(this,'{{ring.ring.id}}','material','{{material}}','{{stone_id}}')">
+                                {{ material }}
+                            </div>
+                        {% elif forloop.counter == 5 %}
+                            <div class="more-box" id="moreMaterialsBtn" onclick="toggleMore('moreMaterials', 'moreMaterialsBtn')">+</div>
+                        {% endif %}
+                    {% endfor %}
+                
+                <div class="filter-options" id="moreMaterials">
+                    {% for material in metal_types|slice:"4:" %}
+                        <div class="shape-box  {% if material == ring.metal_type %}active{% endif %}"onclick="filter_options(this,'{{ring.ring.id}}','material','{{material}}','{{stone_id}}')">
+                            {{ material }}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-
-        <!-- Style Selection -->
-        <h4>Style</h4>
-        <div class="shape-container">
-            {% for style in setting_types %}
-                {% if forloop.counter <= 4 %}
-                    <div class="shape-box {% if style.0 == ring.ring_settings %}active{% endif %}">
-                        {{ style.0 }}
-                    </div>
-                {% elif forloop.counter == 5 %}
-                    <div class="more-box" id="moreStylesBtn" onclick="toggleMore('moreStyles', 'moreStylesBtn')">+</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="hidden-boxes" id="moreStyles">
-            {% for style in setting_types|slice:"4:" %}
-                <div class="shape-box {% if style.0 == ring.ring_settings %}active{% endif %}">
-                    {{ style.0 }}
+            </div>
+            
+            <h4>Style</h4>
+            <div class="shape-container" id="filter-styles">
+                    {% for style in setting_types %}
+                        {% if forloop.counter <= 4 %}
+                            <div class="shape-box  {% if style == ring.ring_settings %}active{% endif %}" onclick="filter_options(this,'{{ring.ring.id}}','style','{{style}}','{{stone_id}}')">
+                                {{ style }}...
+                            </div>
+                        {% elif forloop.counter == 5 %}
+                            <div class="more-box" id="moreStylesBtn" onclick="toggleMore('moreStyles', 'moreStylesBtn')">+</div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div><br>
-
-        <div class="button-container">
-            {% if stone_id %}
-                <a href="{% url 'combination_stone_ring' stone_id ring.id %}">
-                    <button>Complete your ring</button>
-                </a>
-            {% else %}
-                <a href="{% url 'ring_setting_stone' ring.id %}">
-                    <button>Select Stone</button>
-                </a>
-                <a href="#">
-                    <button>Buy setting only</button>
-                </a>
-            {% endif %}
-        </div><br>
+                <div class="hidden-options" id="moreStyles">
+                    {% for style in setting_types|slice:"4:" %}
+                        <div class="shape-box  {% if style == ring.ring_settings %}active{% endif %}"onclick="filter_options(this,'{{ring.ring.id}}','style','{{style}}','{{stone_id}}')">
+                            {{ style }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
 
         <div class="features-container">
             <div class="feature-item">
@@ -906,3 +895,48 @@
     // Prevent context menu on right-click
     image.addEventListener("contextmenu", (e) => e.preventDefault());
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add click event listener to all filter options
+        document.querySelectorAll(".shape-box").forEach(item => {
+            item.addEventListener("click", function () {
+                let categoryContainer = this.closest(".shape-container, .hidden-boxes");
+    
+                // Remove 'active' class from all options in the same category
+                categoryContainer.querySelectorAll(".shape-box").forEach(el => el.classList.remove("active"));
+    
+                // Add 'active' class only to the clicked item
+                this.classList.add("active");
+    
+
+            });
+        });
+    });
+    
+    // Function to get selected filter values and apply filters dynamically
+    
+    // Function to get selected filter value (only one per category)
+    function getSelectedValue(selector) {
+        console.log(selector,"mmm")
+        let selectedElement = document.querySelector(selector + " .active");
+        console.log(selectedElement,"l;;")
+        return selectedElement ? selectedElement.textContent.trim() : "";
+    }
+    
+    // Function to update filter options dynamically based on fetched data
+  </script>
+    <script>
+        function filter_options(selectedElement,ring_id,selectedfilter,filtervalue,stone_id=null){
+            console.log('llll')
+            if(stone_id){
+                url=`/serach_ring_details/${stone_id}?ring_id=${ring_id}&${selectedfilter}=${filtervalue}`
+
+            }
+            else{
+                url=`/serach_ring_details?ring_id=${ring_id}&${selectedfilter}=${filtervalue}`
+
+            }
+            window.location.href=url;
+        }
+    </script>
