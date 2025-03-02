@@ -7,7 +7,27 @@
         position: relative;
         top: 100px;
     }
+    .btn-primary {
+        background-color: black;
+        width: 88%;
+        padding: 12px 20px;
+        color: white;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+    }
 
+    .btn-secondary {
+        background-color: #f8f9fa;
+        color: black;
+        width: 88%;
+        margin-top:20px;
+        border-radius: 50px;
+        padding: 12px 20px;
+        padding: 10px 15px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
     .ring_parent_2 {
         display: flex;
         justify-content: space-between;
@@ -619,7 +639,7 @@
                 <a href="{% url 'ring_setting_stone' ring.id %}">
                     <button class="btn-primary">Select stone Setting</button>
                 </a>
-                <a href="#">
+                <a href="{% url 'ring_setting_stone' ring.id %}">
                     <button class="btn-secondary">Buy Ring Only</button>
                 </a>
                 {% endif %}
