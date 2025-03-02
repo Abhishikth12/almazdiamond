@@ -10,6 +10,11 @@ urlpatterns=[
     path('add-ring',views.add_edit_ring_settings,name='add_ring'),
     path('edit-ring/<int:id>',views.add_edit_ring_settings,name='edit_ring'),
     path('delete_ring_setting/<int:id>',views.delete_ring_setting,name='delete_ring_setting'),
+    path('admin_dashboard/ring-settings-variant/<int:ring_id>',views.ring_setting_variant_admin,name='ring_settings_variant_admin'),
+    path('add-ring-variant/<int:ring_id>',views.add_edit_ring_setting_variant,name='add_ring_variant'),
+    path('edit-ring-variant/<int:ring_id>/<int:id>',views.add_edit_ring_setting_variant,name='edit_ring_variant'),
+    path('delete_ring_setting_variant/<int:ring_id>/<int:id>',views.delete_ring_setting_variant,name='delete_ring_setting_variant'),
+
     path('delete_ring_files/<int:rs_id>/<int:id>',views.delete_ring_files,name='delete_files'),
     path('delete_image/<int:rs_id>',views.delete_ring_files,name="delete_image"),
     path('login',views.login,name='login'),
@@ -32,5 +37,10 @@ urlpatterns=[
     path('stone',views.stones,name='stone'),
     path('stone/<int:ring_id>',views.stones,name='ring_setting_stone'),
     path('stone-details/<int:id>/<int:ring_id>',views.get_more_stone_details,name="ring_get_more_stone_details"),
-    path('stone-details/<int:id>',views.get_more_stone_details,name="get_more_stone_details"),
+    path('stone-details/<int:stone_id>',views.get_more_stone_details,name="get_more_stone_details"),
+    path('serach_ring_details',views.get_more_ring_details,name='serach_ring_details'),
+    path('serach_ring_details/<int:stone_id>',views.get_more_ring_details,name='serach_ring_details'),
+    
+    path('serach_stones',views.stones,name='serach_stones'),
+    path('api/ring_setting_filter_api',views.ring_setting_filter_api,name='ring_setting_filter_api'),
 ]

@@ -300,7 +300,7 @@
     <ul>
       {%for i,j in settings%}
       <li>
-        <a href="#">
+        <a onclick="filter_ring_setting('ring_settings','{{i}}')">
           <!-- Replace with your icon/image URL -->
           <img src="{% static 'img/ringseting.png'%}" alt="Solitaire Icon">
           <span>{{i}}</span>
@@ -317,10 +317,10 @@
   
   <div class="product-grid">
     <!-- Product Card 1 -->
-    {%for i in ring_settings%}
+    {%for i in ring_variants%}
     <div class="product-card" id="cards">
       <img src="{{i.image.url}}" alt="{{i.name}}" style="width:100px;height:100px"/>
-      <h2>{{i.name}}</h2>
+      <h2>{{i.ring.name}}</h2>
       <p class="price">{{i.currency}}  {{i.price}}</p>
      <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
       <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
@@ -364,7 +364,10 @@
     {% include 'footer.html' %}
 </div>
 <script>
- 
+ function filter_ring_setting(key,value){
+    var url = `/ring-settings?${key}=${value}`;
+    window.location.href=url;
+ }
 </script>
 
 </body>
