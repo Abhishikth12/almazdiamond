@@ -215,32 +215,39 @@ STONE_CUT_CHOICES=(
 
 STONE_CLARITY=(
     ('SH','SH'),
-    ('VS2','VS@'),
+    ('VS2','VS1'),
     ('VS1','VS1'),
     ('VVS2','VVS2'),
     ('VVS1','VVS1'),
     ('IF','IF'),
-    ('FL','FL'),
+    ('FL','FL')
 )
 class Shoppers(models.Model):
     client=models.ForeignKey(User,on_delete=models.CASCADE)
     address_line1=models.TextField(null=True,blank=True)
     address_line2=models.TextField(null=True,blank=True)
     pincode=models.CharField(max_length=10,null=True,blank=True)
+class RingSettingTypes(models.Model):
+    ring_setting=models.CharField(choices=SETTING_TYPES,max_length=60,null=True,blank=True)
+    image=models.ImageField(upload_to='Ring_setting_images/',null=True,blank=True)
+    created_at=models.DateTimeField(auto_now_add=True)
 
 class RingSettings(models.Model):
+    name=models.CharField(max_length=100,null=True,blank=True)
+    description=models.TextField(null=True,blank=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+class Ring_setting_variants(models.Model):
+    ring=models.ForeignKey(RingSettings,on_delete=models.CASCADE)
     ring_settings=models.CharField(choices=SETTING_TYPES,max_length=60,null=True,blank=True)
     metal_type=models.CharField(choices=METAL_TYPES,max_length=100,null=True,blank=True)
     shapes=models.CharField(choices=RING_SHAPES,max_length=100,null=True,blank=True)
-    name=models.CharField(max_length=100,null=True,blank=True)
-    description=models.TextField(null=True,blank=True)
     price=models.FloatField(null=True,blank=True)
     currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
     image=models.ImageField(upload_to='Ring_images/',null=True,blank=True)
-    created_at=models.DateTimeField(auto_now_add=True)
 
 class RingDetails(models.Model):
-    ring=models.ForeignKey(RingSettings,on_delete=models.CASCADE)
+    ring_variant=models.ForeignKey(Ring_setting_variants,on_delete=models.CASCADE,null=True,blank=True)
     file=models.FileField(upload_to='Ring_images/',null=True,blank=True)
 
 class Stone(models.Model):

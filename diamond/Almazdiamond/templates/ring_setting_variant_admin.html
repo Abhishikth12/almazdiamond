@@ -4,8 +4,8 @@
 <div class="p-6">
     <h1 class="text-2xl font-bold">Ring Settings</h1>
     <p>Manage your ring settings here.</p>
-    <a href="{% url 'add_ring' %}" class="mt-4 inline-block">
-        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Add Ring</button>
+    <a href="{% url 'add_ring_variant' ring_setting.id %}" class="mt-4 inline-block">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Add Ring Variant</button>
     </a>
     <table>
         <thead>
@@ -20,19 +20,19 @@
             </tr>
         </thead>
         <tbody>
-            {% for ring in ring_settings %}
+            {% for variant in ring_setting_variants %}
             <tr>
-                <td>{{ ring.name }}</td>
-                <td>{{ ring.ring_settings }}</td>
-                <td>{{ ring.metal_type }}</td>
-                <td>{{ ring.shapes }}</td>
-                <td>{{ ring.price }}</td>
-                <td>{{ ring.currency }}</td>
+                <td>{{ variant.ring.name }}</td>
+                <td>{{ variant.ring_settings }}</td>
+                <td>{{ variant.metal_type }}</td>
+                <td>{{ variant.shapes }}</td>
+                <td>{{ variant.price }}</td>
+                <td>{{ variant.currency }}</td>
                 <td>
-                    <a href="{% url 'edit_ring' ring.id %}">
+                    <a href="{% url 'edit_ring_variant' variant.ring_id variant.id %}">
                         <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Edit</button>
                     </a>
-                    <a href="{% url 'delete_ring_setting' ring.id %}">
+                    <a href="{% url 'delete_ring_setting_variant' variant.ring.id variant.id %}">
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </a>
                 </td>
