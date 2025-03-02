@@ -309,8 +309,8 @@ def get_more_ring_details(request, id=None, stone_id=None):
         },
     )
 def combination_stone_ring(request,stone_id,ring_id):
-    ring_id=Ring_setting_variants.objects.filter(ring_id=ring_id).first().ring_id
-    combination=Combination.objects.filter(stone_id=stone_id,ring_id=ring_id).first()
+    # ring_id=Ring_setting_variants.objects.filter(ring_id=ring_id).first().ring_id
+    combination=Combination.objects.filter(stone_id=stone_id,ring_variant_id=ring_id).first()
     combination_details=CombinationFiles.objects.filter(combination_id=combination)
     print(combination_details,"lll")
     return render(request,'combination_stone_ring.html',{"combination":combination,"combination_details":combination_details,"stone_id":stone_id,"ring_id":ring_id})
