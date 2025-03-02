@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 # from rest_framework.decorators import api_view
 # from .serializers import *
 # from rest_framework.response import Response
-import requests
+# import requests
 from django.db.models import Q
 from  Almazdiamond.settings import *
 #Create your views here.
