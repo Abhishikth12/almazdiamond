@@ -255,33 +255,7 @@
         grid-template-columns: 1fr;
       }
     }
-
-
-
-
-
- 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* General Container */
+/* General Container */
     .selection-container {
         display: flex;
         flex-direction: column;
@@ -369,6 +343,61 @@
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
     
+
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border: 1px solid #ccc;
+  }
+  .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-direction: column;
+  }
+  .filter-group label {
+      font-weight: bold;
+  }
+  .options {
+      display: flex;
+      gap: 5px;
+  }
+  .options button {
+      border: 1px solid black;
+      padding: 8px 22px;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+  }
+  .options button.selected {
+      border-width: 2px;
+  }
+  .range-slider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+  .range-slider input {
+      width: 100px;
+      padding: 10px;
+      border-radius: 10px;
+  }
+  .budget input {
+      width: 120px;
+      padding: 10px;
+      border-radius: 10px;
+  }
+  .advanced-btn {
+      background: black;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+  }
   </style>
 </head>
 <body>
@@ -386,8 +415,8 @@
   
   <!-- Hero Section -->
   <section class="collection-hero">
-    <h1>Stones</h1>
-    <p>Discover our collection of made-to-order engagement rings and customize to your preference.</p>
+    <h1>Select your Stone Shape and Quality</h1>
+    <p style="margin-top:2%;">Use the filters below to design your perfect engagement ring</p>
   </section>
   
   <nav class="ring-categories">
@@ -403,31 +432,67 @@
     </ul>
   </nav>
   
-  <div class="selection-container">
-    <!-- Stone Cut Section -->
+  <!-- <div class="selection-container">
     <h2 class="selection-title">Stone Cut</h2>
     <div class="selection-grid">
         {% for i in stone_cuts %}
         <div class="selection-item">{{ i.0 }}</div>
         {% endfor %}
     </div>
-
-    <!-- Stone Clarity Section -->
     <h2 class="selection-title">Stone Clarity</h2>
     <div class="selection-grid">
         {% for i in stone_clarity %}
         <div class="selection-item">{{ i.0 }}</div>
         {% endfor %}
     </div>
-
-    <!-- Price Range Section -->
     <div class="price-range">
         <label>Price Range</label>
         <input type="number" value="220" name="min_range" placeholder="Min" />
         <input type="number" value="1000" name="max_range" placeholder="Max" />
     </div>
-</div>
+</div> -->
 
+<div class="filter-section">
+  <div class="filter-group">
+      <label>Color</label>
+      <div class="options">
+          <button>J</button><button>I</button><button>H</button>
+          <button>G</button><button class="selected">F</button><button>E</button><button>D</button>
+      </div>
+  </div>
+  <div class="filter-group">
+      <label>Clarity</label>
+      <div class="options">
+          <button>SI1</button><button>VS2</button><button>VS1</button>
+          <button class="selected">VVS2</button><button>VVS1</button><button>IF</button><button>FL</button>
+      </div>
+  </div>
+  <div class="filter-group">
+      <label>Cut</label>
+      <div class="options">
+          <button>GOOD</button><button>VERY GOOD</button><button class="selected">EXCELLENT</button>
+      </div>
+  </div>
+  <div class="filter-group">
+      <label>Carat</label>
+      <div class="range-slider">
+          <input type="text" value="2 ct"> to <input type="text" value="11 ct">
+      </div>
+  </div>
+  <div class="filter-group">
+      <label>Budget</label>
+      <div class="budget">
+          <input type="text" value="$200"> to <input type="text" value="$2,650,260">
+      </div>
+  </div>
+  <div class="filter-group">
+      <label>Certificate</label>
+      <div class="options">
+          <button>IGI</button><button>GIA</button>
+      </div>
+  </div>
+  <button class="advanced-btn">Advanced Quality Specs +</button>
+</div>
 
   <!-- Enhanced Product Grid -->
   <div class="product-grid">

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Engagement Rings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
     /* Reset some default styles */
     * {
@@ -51,11 +52,11 @@
     /* Hero / Title Section */
     .collection-hero {
       text-align: center;
-      padding: 2rem 1rem 1rem;
+      padding: 0rem 1rem 1rem;
     }
 
     .collection-hero h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
 
@@ -91,12 +92,13 @@
     }
 
     .product-card {
-      border: 1px solid #e6e6e6;
-      border-radius: 4px;
+      border: 2px solid #c5c4c4;
+      border-radius: 24px;
       text-align: center;
       padding: 1rem;
       transition: box-shadow 0.3s;
       background-color: #fff;
+      width: max-content;
     }
 
     .product-card:hover {
@@ -117,7 +119,7 @@
     }
 
     .product-card .price {
-      font-weight: bold;
+      font-weight: 500;
       color: #333;
       margin-bottom: 0.5rem;
     }
@@ -130,6 +132,7 @@
       padding: 0.5rem 1rem;
       border-radius: 4px;
       transition: background-color 0.3s;
+      border-radius: 24px;
     }
 
     .product-card .view-details:hover {
@@ -149,7 +152,7 @@
       color: #666;
       font-size: 0.9rem;
     }
-
+    
     /* Responsive adjustments */
     @media (max-width: 600px) {
       nav ul {
@@ -199,14 +202,7 @@
       .ring-categories span {
         margin-top: 0.25rem;        /* small gap above text (optional) */
       }
-      {% load static %}
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <title>Engagement Rings</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
+    
           /* Reset default styles */
           * {
             margin: 0;
@@ -298,7 +294,7 @@
   <!-- Hero Section -->
   <section class="collection-hero">
     <h1>Engagement Rings</h1>
-    <p style="margin-top:2%;">Discover our collection of made-to-order engagement rings and customize to your preferences.</p>
+    <p style="margin-top:1%;">Discover our collection of made-to-order engagement rings and customize to your preferences.</p>
   </section>
   <nav class="ring-categories">
     <ul>
@@ -326,14 +322,43 @@
       <img src="{{i.image.url}}" alt="{{i.name}}" style="width:100px;height:100px"/>
       <h2>{{i.name}}</h2>
       <p class="price">{{i.currency}}  {{i.price}}</p>
-      <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details">View Details</a>
+     <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
+      <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
+      <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details">Complete Ring</a>
+    </div>
     </div>
 {%endfor%}
     <!-- Product Card 2 -->
     
     <!-- Add more products as needed -->
   </div>
+  <div class="newsletter-section">
+    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+    <div class="newsletter-form">
+        <input type="email" placeholder="ENTER YOUR EMAIL">
+        <button>SUBSCRIBE</button>
+    </div>
+</div>
 
+<div class="features-section">
+    <div class="feature">
+        <img src="worldwide-delivery-icon.png" alt="Worldwide Delivery">
+        <h3>Worldwide Delivery</h3>
+        <p>Overnight Complimentary Shipping</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="returns-icon.png" alt="Returns Within 30 Days">
+        <h3>Returns Within 30 Days</h3>
+        <p>Satisfaction Guaranteed</p>
+    </div>
+    <div class="divider"></div>
+    <div class="feature">
+        <img src="warranty-icon.png" alt="Lifetime Warranty">
+        <h3>Lifetime Warranty</h3>
+        <p>Shop With Confidence</p>
+    </div>
+</div>
   <!-- Footer -->
   <div id="footer-container">
     {% include 'footer.html' %}
