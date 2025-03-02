@@ -270,7 +270,7 @@ class StoneDetails(models.Model):
 
 class Combination(models.Model):
     stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
-    ring=models.ForeignKey(RingSettings,on_delete=models.CASCADE)
+    ring_variant=models.ForeignKey(Ring_setting_variants,on_delete=models.CASCADE,null=True,blank=True)
     price=models.FloatField(null=True,blank=True)
     currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
 
