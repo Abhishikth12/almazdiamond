@@ -598,11 +598,11 @@
             <br>
             <div class="purchase-options">
                 {% if stone_id %}
-                <a href="{% url 'combination_stone_ring' stone_id ring.id %}">
+                <a href="{% url 'combination_stone_ring' stone_id ring.ring_id %}">
                     <button class="btn-primary">Complete Your Ring</button>
                 </a>
                 {% else %}
-                <a href="{% url 'ring_setting_stone' ring.id %}">
+                <a href="{% url 'ring_setting_stone' ring.ring_id %}">
                     <button class="btn-primary">Select stone Setting</button>
                 </a>
                 <a href="#">
