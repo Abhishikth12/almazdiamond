@@ -610,7 +610,20 @@
                 </div>
             </div>
             <br>
-
+            <div class="purchase-options">
+                {% if stone_id %}
+                <a href="{% url 'combination_stone_ring' stone_id ring.id %}">
+                    <button class="btn-primary">Complete Your Ring</button>
+                </a>
+                {% else %}
+                <a href="{% url 'ring_setting_stone' ring.id %}">
+                    <button class="btn-primary">Select stone Setting</button>
+                </a>
+                <a href="#">
+                    <button class="btn-secondary">Buy Ring Only</button>
+                </a>
+                {% endif %}
+            </div>
         <div class="features-container">
             <div class="feature-item">
                 <i class="fas fa-plane"></i>
@@ -983,7 +996,7 @@
     <script>
         function filter_options(selectedElement,ring_id,selectedfilter,filtervalue,stone_id=null){
             console.log('llll')
-            if(stone_id){
+            if(stone_id!='None'){
                 url=`/serach_ring_details/${stone_id}?ring_id=${ring_id}&${selectedfilter}=${filtervalue}`
 
             }
