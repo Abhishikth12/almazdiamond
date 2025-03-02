@@ -37,7 +37,7 @@ urlpatterns=[
     path('stone',views.stones,name='stone'),
     path('stone/<int:ring_id>',views.stones,name='ring_setting_stone'),
     path('stone-details/<int:id>/<int:ring_id>',views.get_more_stone_details,name="ring_get_more_stone_details"),
-    path('stone-details/<int:stone_id>',views.get_more_stone_details,name="get_more_stone_details"),
+    path('stone-details/<int:id>',views.get_more_stone_details,name="get_more_stone_details"),
     path('serach_ring_details',views.get_more_ring_details,name='serach_ring_details'),
     path('serach_ring_details/<int:stone_id>',views.get_more_ring_details,name='serach_ring_details'),
     
