@@ -21,18 +21,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            
             background-color: white;
             border-bottom: 1px solid #ddd;
             position: relative;
+            padding: 0 10px;
         }
         .logo {
             display: flex;
             align-items: center;
-           
         }
         .logo img {
-           
             margin-right: 10px;
         }
         .menu {
@@ -110,6 +108,103 @@
             width: 180px;
             outline: none;
         }
+        .hamburger{
+            display: none;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 5%;
+            }
+
+            .menu {
+                flex-direction: column;
+                margin-left: 0;
+                margin-top: 10px;
+                gap: 10px;
+            }
+
+            .menu li {
+                width: 100%;
+            }
+
+            .menu li a {
+                padding: 12px;
+                font-size: 18px;
+                text-align: left;
+                width: 100%;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0;
+                left: 0;
+                box-shadow: none;
+                padding: 10px;
+                gap: 15px;
+                display: none;
+                width: 100%;
+            }
+
+            .menu li:hover .submenu {
+                display: block;
+            }
+
+            .icons {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 15px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu li a {
+                font-size: 16px;
+            }
+
+            .search-bar {
+                font-size: 12px;
+            }
+
+            .icons img {
+                height: 20px;
+            }
+        }
+
+        /* Hamburger menu styles */
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                flex-direction: column;
+            }
+
+            .menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+                cursor: pointer;
+                font-size: 30px;
+                color: black;
+            }
+
+            .hamburger:focus {
+                outline: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -121,22 +216,20 @@
 <nav class="navbar">
     <div class="logo">
         <img src="{% static 'img/almazmain.png'%}" alt="Almaz Logo">
-        
     </div>
 
-    
-    
+    <!-- Hamburger icon for mobile -->
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
     <ul class="menu">
         <li class="dropdown">
             <a href="#">FINE JEWELRY</a>
             <div class="submenu">
                 <div>
                     <h4>RINGS</h4>
-                    
                     <a href="#">wedding Bands</a>
                     <a href="#">Eternity Rings</a>
                     <a href="#">Aniversary RIngs</a>
-                    
                 </div>
                 <div>
                     <h4>EARRINGS</h4>
@@ -144,19 +237,16 @@
                     <a href="#">Drop & Dangle</a>
                     <a href="#">Huggies & Hoops</a>
                     <a href="#">Crawerls</a>
-                    
                 </div>
                 <div>
                     <h4>NECKLACES</h4>
                     <a href="#">Diamond Pendants</a>
                     <a href="#">Necklaces</a>
-                    
                 </div>
                 <div>
                     <h4>BRACELETS</h4>
-                    <a href="#" >Tennis</a>
-                    <a href="#" >Bangles</a>
-                   
+                    <a href="#">Tennis</a>
+                    <a href="#">Bangles</a>
                 </div>
             </div>
         </li>
@@ -212,17 +302,13 @@
                     <a href="#">Eternity</a>
                     <a href="#">Aniversary</a>
                     <a href="#">Prong</a>
-
-
                 </div>
                 <div>
                     <h4>FOR HIM</h4>
                     <a href="#">Classic</a>
                     <a href="#">Diamond</a>
                     <a href="#">Desiginer</a>
-                    
                 </div>
-                
                 <div>
                     <h4>SHOP BY METAL</h4>
                     <a href="#" style="color: gold;">● Yellow Gold</a>
@@ -238,7 +324,6 @@
         <li class="dropdown">
             <a href="#">GEMSTONE</a>
         </li>
-        
     </ul>
     <input type="text" class="search-bar" placeholder="Search...">
     <div class="icons">
@@ -246,6 +331,13 @@
         <a href="{% url 'login'%}"><img src="{% static 'img/cart.png' %}" alt="Account"></a>
     </div>
 </nav>
+
+<script>
+    function toggleMenu() {
+        var menu = document.querySelector('.menu');
+        menu.classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
