@@ -401,9 +401,14 @@
   </style>
 </head>
 <body>
-
+  <div class="steps">
+    <a class="step" href="{% url 'view_cart'%}"> <div>View Cart</div></a>
+    <a class="step" href="{% url 'view_wishlist'%}"><div >View Wishlist</div></a>
+  
+  </div>
   <!-- Header -->
   <div id="navbar-container">
+   
     {% include 'navbar.html' %}
   </div>
   
@@ -521,6 +526,8 @@
         </div>
         
         <a href="{% if ring_id %}{% url 'ring_get_more_stone_details' i.id ring_id %}{% else %}{% url 'get_more_stone_details' i.id %}{% endif %}" class="view-details">View Details</a>
+        <a onclick="addto_cart('{{i.id}}')" class="view-details"  style="background-color: #fff;color:#000;border:2px solid;">Add to cart</a>
+      <a onclick="addto_wishlist('{{i.id}}')" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">Add Wishlist</a>
       </div>
     </div>
     {% endfor %}
@@ -583,6 +590,47 @@
         });
     });
 </script>
+<script>
+  
+function addto_cart(item_id){
+  let url=`/addto_cart`;
+  let seleted_product={
+    stone_id:item_id
+  }
+     
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(seleted_product)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    });
+  }
+function addto_wishlist(item_id){
+let url=`/addto_wishlist`;
+let seleted_product={
+  stone_id:item_id
+}
+   
+  fetch(url, {
+      method: 'POST',
+      headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(seleted_product)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log("Success:", data);
+  });
+}
 
+</script>
 </body>
 </html>

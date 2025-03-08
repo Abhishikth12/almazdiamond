@@ -245,10 +245,14 @@ class Ring_setting_variants(models.Model):
     price=models.FloatField(null=True,blank=True)
     currency=models.CharField(choices=CURRENCY_CHOICES,max_length=10,null=True,blank=True)
     image=models.ImageField(upload_to='Ring_images/',null=True,blank=True)
+    carat=models.CharField(max_length=10,null=True,blank=True)
+    width=models.CharField(max_length=10,null=True,blank=True)
+    profile=models.CharField(max_length=10,null=True,blank=True)
 
 class RingDetails(models.Model):
     ring_variant=models.ForeignKey(Ring_setting_variants,on_delete=models.CASCADE,null=True,blank=True)
     file=models.FileField(upload_to='Ring_images/',null=True,blank=True)
+    ring_images_360=models.ImageField(upload_to='260_ring_image/',null=True,blank=True)
 
 class Stone(models.Model):
     stone_name=models.CharField(max_length=100,null=True,blank=True)
@@ -267,6 +271,7 @@ class Stone(models.Model):
 class StoneDetails(models.Model):
     stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
     file=models.FileField(upload_to='Stone_images/',null=True,blank=True)
+    stone_images_360=models.ImageField(upload_to='260_stone_image/',null=True,blank=True)
 
 class Combination(models.Model):
     stone=models.ForeignKey(Stone,on_delete=models.CASCADE)
@@ -277,3 +282,12 @@ class Combination(models.Model):
 class CombinationFiles(models.Model):
     combination=models.ForeignKey(Combination,on_delete=models.CASCADE)
     files=models.FileField(upload_to='combinationfiles/',null=True,blank=True)
+
+class Wishlist(models.Model):
+    stone=models.ForeignKey(Stone,on_delete=models.CASCADE,null=True,blank=True)
+    ring_variant=models.ForeignKey(Ring_setting_variants,on_delete=models.CASCADE,null=True,blank=True)
+
+class Cart(models.Model):
+    stone=models.ForeignKey(Stone,on_delete=models.CASCADE,null=True,blank=True)
+    ring_variant=models.ForeignKey(Ring_setting_variants,on_delete=models.CASCADE,null=True,blank=True)
+    item_count=models.IntegerField(null=True,blank=True)

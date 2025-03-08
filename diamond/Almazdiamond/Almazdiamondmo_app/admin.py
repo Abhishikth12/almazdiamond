@@ -9,3 +9,6 @@ admin.site.register(StoneDetails)
 admin.site.register(Combination)
 admin.site.register(CombinationFiles)
 admin.site.register(Ring_setting_variants)
+admin.site.register(Wishlist)
+admin.site.register(Cart)
+

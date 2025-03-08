@@ -75,7 +75,14 @@
         <h5 style="font-family: system-ui;font-size: 18px;font-weight:500;">Stone Price: {{stone.currency}} {{ stone.stone_price }}</h5>
         <h5 style="font-family: system-ui;font-size: 18px;font-weight:500;">Ring  Price: {{ring_variant.currency}} {{ ring_variant.price }}</h5>
         <h5 style="font-family: system-ui;font-size: 18px;font-weight:500;">Total Price: {{total}}</h5>
-
+        <div>
+            <select>
+                <option hidden="">Select your Ring Size</option>
+                {%for i in ring_size%}
+                <option value="{{i}}">{{i}}</option>
+                {%endfor%}
+            </select>
+        </div>
         <!-- Purchase Options -->
         <div class="purchase-options">
             {% if ring_id %}
@@ -120,7 +127,7 @@
                 <div class="section-header">
                     <i class="fas fa-ruler icon-width"></i> WIDTH
                 </div>
-                <div class="section-value">1.8mm</div>
+                <div class="section-value">{{ring_variant.width}}mm</div>
                 <div class="section-description">Measured at the base of the ring</div>
             </div>
 
@@ -128,7 +135,7 @@
                 <div class="section-header">
                     <i class="fas fa-ring icon-profile"></i> PROFILE
                 </div>
-                <div class="section-value">High</div>
+                <div class="section-value">{{ring_variant.profile}}</div>
                 <div class="section-description">Sits flush with a straight wedding band</div>
             </div>
 
@@ -136,7 +143,7 @@
                 <div class="section-header">
                     <i class="fas fa-gem icon-metal"></i> METAL
                 </div>
-                <div class="section-value">14k Yellow Gold</div>
+                <div class="section-value">{{ring_variant.carat}} Yellow Gold</div>
                 <div class="composition-chart">
                     <div class="chart-item"><span class="circle-shape gold-color"></span> 58.5% Gold</div>
                     <div class="chart-item"><span class="circle-shape copper-color"></span> 30.5% Copper</div>

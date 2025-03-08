@@ -293,7 +293,13 @@
 
   <!-- Header -->
   <div id="navbar-container">
+   
     {% include 'navbar.html' %}
+</div>
+<div class="steps">
+  <a class="step" href="{% url 'view_cart'%}"> <div>View Cart</div></a>
+  <a class="step" href="{% url 'view_wishlist'%}"><div >View Wishlist</div></a>
+
 </div>
 <div class="steps">
   <div class="step active">1. Select Setting</div>
@@ -426,6 +432,11 @@
      <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
       <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
       <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details">Complete Ring</a>
+      </div>
+     <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
+      <a onclick="addto_cart('{{i.id}}')">Add to cart</a>
+      <a onclick="addto_wishlist('{{i.id}}')" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">Add Wishlist</a>
+      
     </div>
     </div>
 {%endfor%}
@@ -542,17 +553,59 @@ function updateProductGrid(rings,stone_id) {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
-          <img src="media/${ring.image}" alt="${ring.ring_settings}" style="width:100px;height:100px"/>
-          <h2>${ring.ring__name}</h2>
+          <img src="/media/${ring.image}" alt="${ring.ring_settings}" style="width:100px;height:100px"/>
+          <h2>${ring.ring__name}mmmmmmmm</h2>
           <p class="price">${ring.currency} ${ring.price}</p>
           <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
-              <a href="{%if stone_id != null %}/ring-details/${ring.ring__id}/${stone_id}{%else%}/ring-details/${ring.ring__id}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
-              <a href="{%if stone_id != null %}/ring-details/${ring.ring__id}/${stone_id}{%else%}/ring-details/${ring.ring__id}{%endif%}" class="view-details">Complete Ring</a>
+              <a href="{%if stone_id != null %}/ring-details/${ring.id}/${stone_id}{%else%}/ring-details/${ring.id}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
+              <a href="{%if stone_id != null %}/ring-details/${ring.id}/${stone_id}{%else%}/ring-details/${ring.id}{%endif%}" class="view-details">Complete Ring</a>
           </div>
+          <div style="display: flex; justify-content: space-evenly; gap: 18px; margin-top: 10%;">
+        <a href="javascript:void(0);" onclick="addto_cart('${ring.id}')" class="view-details">Add to Cart</a>
+        <a href="javascript:void(0);" onclick="addto_wishlist('${ring.id}')" class="view-details" style="background-color: #fff; color:#000; border:2px solid;">Add Wishlist</a>
+    </div>
       `;
       productGrid.appendChild(card);
   });
 }
+}
+function addto_cart(item_id){
+  let url=`/addto_cart`;
+  let seleted_product={
+    ring_variant_id:item_id
+  }
+     
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(seleted_product)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    });
+  }
+function addto_wishlist(item_id){
+let url=`/addto_wishlist`;
+let seleted_product={
+  ring_variant_id:item_id
+}
+   
+  fetch(url, {
+      method: 'POST',
+      headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(seleted_product)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log("Success:", data);
+  });
 }
 </script>
 </body>
