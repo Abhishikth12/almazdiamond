@@ -42,5 +42,11 @@ urlpatterns=[
     path('serach_ring_details/<int:stone_id>',views.get_more_ring_details,name='serach_ring_details'),
     
     path('serach_stones',views.stones,name='serach_stones'),
+    path('addto_wishlist',views.addto_wishlist,name='addto_wishlist'),
+    path('addto_cart',views.addto_cart,name='addto_cart'),
+    path('view_wishlist',views.view_wishlist,name="view_wishlist"),
+    path('view_cart',views.view_cart,name="view_cart"),
+    path("admin-login/", views.admin_login, name="admin_login"),
+    path("admin-logout/", views.admin_logout, name="admin_logout"),
     # path('api/ring_setting_filter_api',views.ring_setting_filter_api,name='ring_setting_filter_api'),
 ]

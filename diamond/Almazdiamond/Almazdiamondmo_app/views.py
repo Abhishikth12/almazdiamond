@@ -21,7 +21,10 @@ def login(request):
 
     return render(request,'login.html')
 def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect("admin_login")
+
+    return render(request, "admin_dashboard.html")
 
 def ring_settings_admin(request):
     ring_settings=RingSettings.objects.all()
@@ -51,7 +54,7 @@ def ring_setting_variant_admin(request,ring_id):
     print(ring_setting_variants,"ring_setting_variants")
     return render(request,'ring_setting_variant_admin.html',{"ring_setting_variants":ring_setting_variants,"ring_setting":ring_setting})
 def add_edit_ring_setting_variant(request,ring_id,id=None):
-    ring_variant=ring_details=None
+    ring_variant=ring_details_file=ring_details_360=None
     if request.method=='POST':
         if ring_id:
             defaults={
@@ -60,7 +63,10 @@ def add_edit_ring_setting_variant(request,ring_id,id=None):
             'ring_id':ring_id,
             'ring_settings':request.POST.get('ring_settings',''),
             'metal_type':request.POST.get('metal_type',''),
-            'shapes':request.POST.get('shapes','')
+            'shapes':request.POST.get('shapes',''),
+            "carat":request.POST.get('carat','14k'),
+            "width":request.POST.get('width',''),
+            "profile":request.POST.get('profile','')
             }
             if request.FILES.get('image'):
                 defaults["image"]=request.FILES.get('image')
@@ -76,15 +82,28 @@ def add_edit_ring_setting_variant(request,ring_id,id=None):
                         ring_variant=variant,
                         file=i
                     )
+                file_360=request.FILES.getlist('files_360',[])
+                for i in file_360:
+                    RingDetails.objects.create(
+                        ring_variant=variant,
+                        ring_images_360=i
+                    )
 
         return redirect(reverse('ring_settings_variant_admin',kwargs={"ring_id":ring_id}))
     if id:
         ring_variant=Ring_setting_variants.objects.filter(id=id).first()
         if ring_variant:
-            ring_details=RingDetails.objects.filter(ring_variant=ring_variant)
+            ring_details_file = RingDetails.objects.filter(
+                ring_variant=ring_variant
+            ).exclude(file="").only("ring_variant", "id", "file")
 
+            print(ring_details_file,"ring_details_file")
+            for i in ring_details_file:
+                print(i.file,"lll")
+            ring_details_360=RingDetails.objects.filter(ring_variant=ring_variant).exclude(ring_images_360='').only('ring_variant','id','ring_images_360')
+            print(ring_details_360,"ring_details_360")
     ring_setting=RingSettings.objects.filter(id=ring_id).first()
-    return render(request,'add_edit_ring_setting_variant.html',{"ring_setting":ring_setting,"ring_variant":ring_variant,"setting_types":SETTING_TYPES,"metal_types":METAL_TYPES,"ring_shapes":RING_SHAPES,"currency":CURRENCY_CHOICES,"ring_details":ring_details,"id":id})
+    return render(request,'add_edit_ring_setting_variant.html',{"ring_setting":ring_setting,"ring_variant":ring_variant,"setting_types":SETTING_TYPES,"metal_types":METAL_TYPES,"ring_shapes":RING_SHAPES,"currency":CURRENCY_CHOICES,"ring_details_file":ring_details_file,"ring_details_360":ring_details_360,"id":id})
 
 def delete_ring_setting(request,id):
     RingSettings.objects.filter(id=id).delete()
@@ -140,6 +159,12 @@ def add_edit_stone(request,id=None):
                 StoneDetails.objects.create(
                     stone=stone,
                     file=i
+                )
+            file_360=request.FILES.getlist('files_360',[])
+            for i in file_360:
+                StoneDetails.objects.create(
+                    stone=stone,
+                    stone_images_360=i
                 )
 
         return redirect('stone_admin')
@@ -273,6 +298,17 @@ def ring_settings(request,stone_id=None):
         
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
+    if stone_id:
+        cart,created=Cart.objects.update_or_create(
+            stone_id=stone_id,
+            defaults={"item_count": 1} 
+        )
+    
+
+        if not created:
+            cart.item_count += 1
+            cart.save()
+
     ring_variants=Ring_setting_variants.objects.filter(metal_type='White Gold',shapes='Round',ring_settings='Solitaire').order_by('-price')
     
     return render(request,'setting.html',{"ring_variants":ring_variants,"settings":SETTING_TYPES,"metal_types":METAL_TYPES,"ring_shapes":RING_SHAPES,"stone_id":stone_id})
@@ -355,9 +391,10 @@ def combination_stone_ring(request,stone_id,ring_id):
         stone_details=StoneDetails.objects.filter(stone=stone)
         if stone_details.exists():
             stone_details=stone_details[:2]
+    ring_size = tuple(f"{x:.2f}".rstrip('0').rstrip('.') for x in [i * 0.25 for i in range(12, 44)])
+    
 
-
-    return render(request,'combination_stone_ring.html',{"ring_variant":ring_variant,"stone":stone,"stone_details":stone_details,"ring_details":ring_details,"stone_id":stone_id,"ring_id":ring_id,"total":ring_variant.price+stone.stone_price})
+    return render(request,'combination_stone_ring.html',{"ring_size":ring_size,"ring_variant":ring_variant,"stone":stone,"stone_details":stone_details,"ring_details":ring_details,"stone_id":stone_id,"ring_id":ring_id,"total":ring_variant.price+stone.stone_price})
 
 def stones(request,ring_id=None):
    
@@ -386,6 +423,18 @@ def stones(request,ring_id=None):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     stones=Stone.objects.filter(stone_shape='Round').order_by('-stone_price')
+    if ring_id:
+        print(ring_id,"ring_id")
+        cart, created = Cart.objects.get_or_create(
+            ring_variant_id=ring_id,
+            defaults={"item_count": 1}  # Set item_count to 1 if creating a new cart
+        )
+
+        if not created:
+            cart.item_count += 1
+            cart.save()
+
+
     return render(request,'stone.html',{"stones":stones,"ring_id":ring_id,"stone_shapes":STONE_SHAPES,"stone_cuts":STONE_CUT_CHOICES,"stone_clarity":STONE_CLARITY})
 
 def get_more_stone_details(request,id,ring_id=None):
@@ -398,34 +447,118 @@ def get_more_stone_details(request,id,ring_id=None):
 
 # @api_view(['GET'])
 # def ring_setting_filter_api(request):
-    query = Q()
-    varient_id=None
-    rings=serializer=None
-    if 'ring_settings' in request.GET:
-        query &= Q(ring_settings=request.GET['ring_settings', 'Solitaire'])
-    if 'metal_type' in request.GET:
-        query &= Q(metal_type=request.GET['metal_type','White Gold'])
-    if 'shapes' in request.GET:
-        query &= Q(shapes=request.GET['shapes','Round'])
-    if 'name' in request.GET:
-        query &= Q(name__icontains=request.GET['name'])  # Partial match
-    if 'description' in request.GET:
-        query &= Q(description__icontains=request.GET['description'])
-    if 'price_min' in request.GET:
-        query &= Q(price__gte=request.GET['price_min'])
-    if 'price_max' in request.GET:
-        query &= Q(price__lte=request.GET['price_max'])
-    if 'currency' in request.GET:
-        query &= Q(currency=request.GET['currency'])
-    if 'varient_id' in request.GET:
-        varient_id=request.GET['varient_id']
-    # Fetch results based on the filter
-    print(query,"lllll")
-    if query and varient_id:
-        rings = Ring_setting_variants.objects.filter(query,id=varient_id)
-        serializer = Ring_setting_variantsSerializer(rings, many=False)
-    else:
-        rings = Ring_setting_variants.objects.all()
-        serializer = Ring_setting_variantsSerializer(rings, many=True)
+    # query = Q()
+    # varient_id=None
+    # rings=serializer=None
+    # if 'ring_settings' in request.GET:
+    #     query &= Q(ring_settings=request.GET['ring_settings', 'Solitaire'])
+    # if 'metal_type' in request.GET:
+    #     query &= Q(metal_type=request.GET['metal_type','White Gold'])
+    # if 'shapes' in request.GET:
+    #     query &= Q(shapes=request.GET['shapes','Round'])
+    # if 'name' in request.GET:
+    #     query &= Q(name__icontains=request.GET['name'])  # Partial match
+    # if 'description' in request.GET:
+    #     query &= Q(description__icontains=request.GET['description'])
+    # if 'price_min' in request.GET:
+    #     query &= Q(price__gte=request.GET['price_min'])
+    # if 'price_max' in request.GET:
+    #     query &= Q(price__lte=request.GET['price_max'])
+    # if 'currency' in request.GET:
+    #     query &= Q(currency=request.GET['currency'])
+    # if 'varient_id' in request.GET:
+    #     varient_id=request.GET['varient_id']
+    # # Fetch results based on the filter
+    # print(query,"lllll")
+    # if query and varient_id:
+    #     rings = Ring_setting_variants.objects.filter(query,id=varient_id)
+    #     serializer = Ring_setting_variantsSerializer(rings, many=False)
+    # else:
+    #     rings = Ring_setting_variants.objects.all()
+    #     serializer = Ring_setting_variantsSerializer(rings, many=True)
 
-    return Response(serializer.data)
+    # return Response(serializer.data)
+
+def addto_wishlist(request):
+    if request.method=='POST':
+        data = json.loads(request.body)
+        print(data,"data")
+        if 'ring_variant_id' in data:
+            wishlist,created=Wishlist.objects.update_or_create(
+                ring_variant_id =data['ring_variant_id']
+            )
+        if 'stone_id' in data:
+            wishlist,created=Wishlist.objects.update_or_create(
+                stone_id=data['stone_id']
+            )
+        return JsonResponse({"message": "Data received"})
+    
+def addto_cart(request):
+    if request.method=='POST':
+        data = json.loads(request.body)
+        print(data,"data")
+        if 'ring_variant_id' in data:
+            cart,created=Cart.objects.get_or_create(
+                ring_variant_id =data['ring_variant_id'],
+                defaults={"item_count": 1} 
+            )
+           
+
+            if not created:
+                cart.item_count += 1
+                cart.save()
+        if 'stone_id' in data:
+            cart,created=Cart.objects.update_or_create(
+                stone_id=data['stone_id'],
+                defaults={"item_count": 1} 
+            )
+           
+
+            if not created:
+                cart.item_count += 1
+                cart.save()
+            
+        return JsonResponse({"message": "Data received"})
+
+def view_cart(request):
+    cart_list=Cart.objects.all()
+    return render(request,'view_cart.html',{'cart_list':cart_list})
+
+def view_wishlist(request):
+    wishlist=Wishlist.objects.all()
+    return render(request,'view_wishlist.html',{'wishlist':wishlist})
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
+def admin_login(request):
+    print("lll")
+    if request.user.is_authenticated:  # If admin is already logged in
+        print("autherized")
+        return redirect("admin_dashboard")
+
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None and user.is_staff:  # Ensuring only admin can log in
+            login(request, user)
+            return redirect("admin_dashboard")
+        else:
+            messages.error(request, "Invalid Credentials or Not an Admin")
+
+    return render(request, "admin_login.html")
+
+
+# def admin_dashboard(request):
+#     if not request.user.is_authenticated or not request.user.is_staff:
+#         return redirect("admin_login")
+
+#     return render(request, "admin_dashboard.html")
+
+
+def admin_logout(request):
+    logout(request)
+    return redirect("admin_login")

@@ -53,10 +53,33 @@
     </span>
     <span>
         <label>More Files(Image/Video)</label>
-        {%for i in ring_details%}
+        {%for i in ring_details_file%}
         <p>{{i.file}}<a href="{%url 'delete_files'  ring_variant.id i.id%}" style="color: red;margin-left:10px">X</a></p><br>
         {%endfor%}
-        <input type="file" name="files" id="files" class="form-control" {%if not ring_details%}required{%endif%} multiple>
+        <input type="file" name="files" id="files" class="form-control" {%if not ring_details_file%}required{%endif%} multiple>
+    </span>
+    <span>
+        <label>Images to display 360 view (optional)</label>
+        {% for i in ring_details_360%}
+        <p>{{i.ring_images_360}}<a href="{%url 'delete_files'  ring_variant.id i.id%}" style="color: red;margin-left:10px">X</a></p><br>
+        {%endfor%}
+        <input type="file" name="files_360" id="files" class="form-control" {%if not ring_images_360%}required{%endif%} multiple>
+    </span>
+    <span>
+        <label>Width</label>
+        <input  type="text" placeholder="Width in milli meters (mm)" value="{%if ring.width%}{{ring.value}}{%endif%}" name="width" required>
+    </span>
+    <span>
+        <label>Carat</label>
+        <input type="text" value="14k"  name="carat"readonly>
+    </span>
+    <span>
+        <label>Profile</label>
+        <select name="profile">
+            <option value="High">High</option>
+            <option value="Very High">Very High</option>
+            <option value="Excellent">Excellent</option>
+        </select>
     </span>
     <span>
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Submit</button>
