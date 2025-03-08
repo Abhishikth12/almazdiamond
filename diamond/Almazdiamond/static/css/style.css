@@ -19,6 +19,75 @@ body {
     margin-top:8%;
     flex-direction: column;
 }
+.contone{
+    display: flex;
+    flex-direction:row;
+    background-image: linear-gradient(#BC9273,#FFF2E8 );
+}
+.scndseccc{
+    display: flex;
+    justify-content:center;
+}
+.ourseleccc{
+    display: flex;
+    justify-content:space-between;
+    margin:2%;
+}
+.threeesecc{
+    display: flex;
+    flex-direction:row;
+    background-image: linear-gradient(#fff,#FFF2E8 );
+}
+.fourseccc{
+    display: flex;
+    gap:14%;
+    margin:2%;
+}
+.fiveseccc{
+    display: flex;
+    justify-content:space-between;
+    margin:2%;
+    gap:25px;
+}
+@media (max-width: 480px) {
+    .contone{
+        display: flex;
+        
+        flex-direction:column;
+        background-image: linear-gradient(#BC9273,#FFF2E8 );
+    }
+    .contone img{
+        width: 100%;
+
+    }
+    .scndseccc{
+        flex-direction: column;
+        display: flex;
+        justify-content:center;
+    }
+    .fourseccc{
+        display: flex;
+        flex-direction: column;
+        gap:10%;
+        margin:2%;
+    }
+    .fiveseccc{
+        display: flex;
+        margin:2%;
+    gap:25px;
+        flex-direction: column;
+    }
+    .ourseleccc{
+        display: flex;
+        flex-direction: column;
+        gap:10%;
+    }
+    .threeesecc{
+         display: flex;
+        flex-direction:column;
+        background-image: linear-gradient(#fff,#FFF2E8 );
+    }
+}
 .scndhead{
     font-size: 40px;
     font-weight: 500;
@@ -78,6 +147,7 @@ body {
     flex-wrap: wrap;
    
 }
+
 .loginSectionRight {
     width: 46%;
     display: flex
