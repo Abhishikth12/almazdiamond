@@ -82,7 +82,7 @@
     }
 
     /* Product grid */
-    .product-grid {
+    #product-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       
@@ -163,6 +163,11 @@
     .ring-categories {
         background-color: #fff;
         border-bottom: 1px solid #e6e6e6;
+        display: flex;  /* Arrange items in a row */
+        flex-wrap: wrap;  /* Allow wrapping if needed */
+        justify-content: center;  /* Center items */
+        gap: 20px;  /* Add spacing between items */
+        padding: 20px;
       }
       
       .ring-categories ul {
@@ -280,8 +285,11 @@
             color: #000;
           }
   </style>
+  <meta name="csrf-token" content="{% csrf_token %}">
+
 </head>
 <body>
+
 
   <!-- Header -->
   <div id="navbar-container">
@@ -297,26 +305,118 @@
     <h1>Engagement Rings</h1>
     <p style="margin-top:1%;">Discover our collection of made-to-order engagement rings and customize to your preferences.</p>
   </section>
-  <nav class="ring-categories">
-    <ul>
-      {%for i,j in settings%}
-      <li>
-        <a onclick="filter_ring_setting('ring_settings','{{i}}')">
-          <!-- Replace with your icon/image URL -->
-          <img src="{% static 'img/ringseting.png'%}" alt="Solitaire Icon">
-          <span>{{i}}</span>
-        </a>
-      </li>
-      {%endfor%}
-     
-    </ul>
-  </nav>
+ <!-- Ring Categories Container -->
+<div class="ring-categories">
+  <div class="category" onclick="selectOption('ringCategory', 'Solitaire')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
+      <div class="category-name">Solitaire</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Halo')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Halo Icon">
+      <div class="category-name">Halo</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Pave')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Pave Icon">
+      <div class="category-name">Pave</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Three Stone')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Three Stone Icon">
+      <div class="category-name">Three Stone</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Nature')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Nature Icon">
+      <div class="category-name">Nature</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Hidden Halo')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Hidden Halo Icon">
+      <div class="category-name">Hidden Halo</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'SideStone')">
+      <img src="{% static 'img/ringseting.png' %}" alt="SideStone Icon">
+      <div class="category-name">SideStone</div>
+  </div>
+  <div class="category" onclick="selectOption('ringCategory', 'Vintage')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Vintage Icon">
+      <div class="category-name">Vintage</div>
+  </div>
+</div>
+
+<h3>Select Metal</h3>
+  <div class="ring-categories" id="metalModal">
+        
+            <div class="option" onclick="selectOption('metal', 'White Gold')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
+      <div class="category-name"> White Gold</div>
+             </div>
+            <div class="option" onclick="selectOption('metal', 'Yellow Gold')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
+      <div class="category-name"> Yellow Gold</div>
+      </div>
+            <div class="option" onclick="selectOption('metal', 'Rose Gold')">
+              <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
+                <div class="category-name">Rose Gold</div>
+          </div>
+            <div class="option" onclick="selectOption('metal', 'Platinum')">
+              <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
+                <div class="category-name">Platinum</div></div>
+       
+        <!-- <button class="close-btn" onclick="closeModal('metalModal')">Close</button> -->
+    
+</div>
+
+<div class="ring-categories">
+  <div class="category-option" onclick="selectOption('shape', 'Round')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Round Icon">
+      <span>Round</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Oval')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Oval Icon">
+      <span>Oval</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Pear')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Pear Icon">
+      <span>Pear</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'E-Cushion')">
+      <img src="{% static 'img/ringseting.png' %}" alt="E-Cushion Icon">
+      <span>E-Cushion</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Cushion')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Cushion Icon">
+      <span>Cushion</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Emerald')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Emerald Icon">
+      <span>Emerald</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Princess')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Princess Icon">
+      <span>Princess</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Marquise')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Marquise Icon">
+      <span>Marquise</span>
+  </div>
+  <div class="category-option" onclick="selectOption('shape', 'Radiant')">
+      <img src="{% static 'img/ringseting.png' %}" alt="Radiant Icon">
+      <span>Radiant</span>
+  </div>
+</div>
+
+
+ <select id="price_sort" onchange="selectOption('price_sort', this.value)">
+  <option value="High to Low"{%if price_sort == 'High to Low' %} selected {%endif%}>
+    High to Low
+  </option>
+  <option value="Low to High"{%if price_sort == 'Low to High' %} selected {%endif%}>
+    Low to High
+  </option>
   
- 
+ </select>
 
   <!-- Product Grid -->
   
-  <div class="product-grid">
+  <div id="product-grid">
     <!-- Product Card 1 -->
     {%for i in ring_variants%}
     <div class="product-card" id="cards">
@@ -370,6 +470,90 @@
     window.location.href=url;
  }
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+
+
+function selectOption(category, value) {
+  let defaultOptions = {
+    metal: 'White Gold',
+    shape: 'Round',
+    price_sort: 'High to Low',
+};
+
+// Retrieve selectedOptions from localStorage, or use defaultOptions
+let selectedOptions = localStorage.getItem("selectedOptions");
+console.log(selectedOptions,"kkkjkjjjjjhgfghj")
+if (selectedOptions && selectedOptions.startsWith("{")) { // Check if it's valid JSON
+    try {
+        selectedOptions = JSON.parse(selectedOptions); 
+        console.log("Parsed successfully:", selectedOptions);
+    } catch (error) {
+        console.error("Error parsing JSON:", error);
+        selectedOptions = defaultOptions;
+    }
+} else {
+    console.warn("Invalid or missing localStorage data. Using default options.");
+    selectedOptions = defaultOptions;
+}
+console.log(selectedOptions.metal,"selectedOptions")
+  console.log(selectedOptions,"mmmmmmmmmm");
+    selectedOptions[category] = value;  // Update selection
+    console.log(selectedOptions);  // Debugging
+    sendPostRequest(selectedOptions);
+
+
+// Send data to the backend and store in localStorage
+function sendPostRequest(selectedOptions) {
+  console.log("Sending:", selectedOptions);
+   let stone_id='{{stone_id}}';
+   let url;
+   if(stone_id!='None'){
+    url=`/ring-settings/${stone_id}`;
+   }
+   else{
+    url=`/ring-settings`;
+   }
+  fetch(url, {
+      method: 'POST',
+      headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(selectedOptions)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log("Success:", data);
+      localStorage.setItem("selectedOptions", JSON.stringify(selectedOptions));
+      let rings=data['data'],stone_id=data['stone_id'];
+      updateProductGrid(rings,stone_id);  // Call function to update the product grid
+  })
+  .catch(error => console.error("Error:", error));
+}
+
+function updateProductGrid(rings,stone_id) {
+  console.log(rings,"klkkkkkkkkkkkkkkkkkkkkkkkkkk")
+  const productGrid = document.getElementById('product-grid');
+  productGrid.innerHTML = '';  // Clear existing content
+
+  rings.forEach(ring => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+          <img src="media/${ring.image}" alt="${ring.ring_settings}" style="width:100px;height:100px"/>
+          <h2>${ring.ring__name}</h2>
+          <p class="price">${ring.currency} ${ring.price}</p>
+          <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
+              <a href="{%if stone_id != null %}/ring-details/${ring.ring__id}/${stone_id}{%else%}/ring-details/${ring.ring__id}{%endif%}" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">More Info</a>
+              <a href="{%if stone_id != null %}/ring-details/${ring.ring__id}/${stone_id}{%else%}/ring-details/${ring.ring__id}{%endif%}" class="view-details">Complete Ring</a>
+          </div>
+      `;
+      productGrid.appendChild(card);
+  });
+}
+}
+</script>
 </body>
 </html>

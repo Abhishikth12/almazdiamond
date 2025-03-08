@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404
 # import requests
 from django.db.models import Q
 from  Almazdiamond.settings import *
+import json
 #Create your views here.
 def test_view(request):
     return render(request,'Homemain.html')
@@ -243,10 +244,38 @@ def delete_combination_files(request,c_id,id):
 #     response = requests.get(api_url, params=params)
 #     return response
 def ring_settings(request,stone_id=None):
-    ring_variants=Ring_setting_variants.objects.all()
-    if 'ring_settings' in request.GET:
-        ring_variants=ring_variants.filter(ring_settings=request.GET['ring_settings'])
-    return render(request,'setting.html',{"ring_variants":ring_variants,"settings":SETTING_TYPES,"stone_id":stone_id})
+    print(request.body,"lll")
+   
+    if request.method == "POST":
+        try:
+            # Parse JSON data from request body
+            data = json.loads(request.body)
+            print(data,"data")
+            # {'metal': 'Yellow Gold', 'shape': 'Pear', 'price_sort': 'High to Low', 'ringCategory': 'Halo'}
+            ring_variants=Ring_setting_variants.objects.filter(metal_type=data['metal'],shapes=data['shape'],ring_settings=data['ringCategory'])
+            if data['price_sort']=='High to Low':
+                print('High to Low')
+                ring_variants=ring_variants.order_by('-price')
+            elif data['price_sort']=='Low to High':
+                print('Low to High')
+                ring_variants=ring_variants.order_by('price')
+            print(ring_variants,"ring_variants_queryset")
+            if ring_variants.exists():
+                ring_variants_list = list(ring_variants.values(
+                'id', 'ring_settings', 'metal_type', 'shapes', 'price', 'currency', 'image',
+                'ring__id', 'ring__name', 'ring__description'  # Include fields from the related RingSettings model
+            ))
+                print(ring_variants_list,"ring_variants")
+                return JsonResponse({"message": "Data received", "data": ring_variants_list,"stone_id":stone_id})
+            else:
+                return JsonResponse({"message": "Data received", "data": []})
+
+        
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    ring_variants=Ring_setting_variants.objects.filter(metal_type='White Gold',shapes='Round',ring_settings='Solitaire').order_by('-price')
+    
+    return render(request,'setting.html',{"ring_variants":ring_variants,"settings":SETTING_TYPES,"metal_types":METAL_TYPES,"ring_shapes":RING_SHAPES,"stone_id":stone_id})
 
 def get_more_ring_details(request, id=None, stone_id=None):
     # ring = get_object_or_404(RingSettings, id=id)  # Fetch ring or return 404
@@ -331,19 +360,32 @@ def combination_stone_ring(request,stone_id,ring_id):
     return render(request,'combination_stone_ring.html',{"ring_variant":ring_variant,"stone":stone,"stone_details":stone_details,"ring_details":ring_details,"stone_id":stone_id,"ring_id":ring_id,"total":ring_variant.price+stone.stone_price})
 
 def stones(request,ring_id=None):
-    stones=Stone.objects.all()
-    query=Q()
-    if 'stone_shape' in request.GET:
-        query&=Q(stone_shape__icontains=request.GET['stone_shape'])
-    if 'stone_clarity' in request.GET:
-        query&=Q(stone_clarity__icontains=request.GET['stone_clarity'])
-    if 'stone_cut' in request.GET:
-        query&=Q(stone_cut__icontains=request.GET['stone_cut'])
-    if query:
-        print(query,"query")
-        stones=Stone.objects.filter(query)
-        print(stones,"stones")
+   
+    if request.method == "POST":
+        try:
+            # Parse JSON data from request body
+            data = json.loads(request.body)
+            print(data,"data")
+            # {'metal': 'Yellow Gold', 'shape': 'Pear', 'price_sort': 'High to Low', 'ringCategory': 'Halo'}
+            stones=Stone.objects.filter(stone_type=data['stone_type'],stone_shape=data['stone_shape'],stone_carat=data['stone_carat'],stone_color=data['stone_color'],stone_clarity=data['stone_clarity'],stone_cut=data['stone_cut'])
+            if stones['price_sort']=='High to Low':
+                print('High to Low')
+                stones=stones.order_by('-price')
+            elif data['price_sort']=='Low to High':
+                print('Low to High')
+                stones=stones.order_by('price')
+            print(stones,"stones")
+            if stones.exists():
+                stones_list = list(stones.values())
+                print(stones_list,"stones_list")
+                return JsonResponse({"message": "Data received", "data": stones_list,"ring_id":ring_id})
+            else:
+                return JsonResponse({"message": "Data received", "data": []})
 
+        
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    stones=Stone.objects.filter(stone_shape='Round').order_by('-stone_price')
     return render(request,'stone.html',{"stones":stones,"ring_id":ring_id,"stone_shapes":STONE_SHAPES,"stone_cuts":STONE_CUT_CHOICES,"stone_clarity":STONE_CLARITY})
 
 def get_more_stone_details(request,id,ring_id=None):
