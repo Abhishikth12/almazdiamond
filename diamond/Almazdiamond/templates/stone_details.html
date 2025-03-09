@@ -6,15 +6,15 @@
 <div id="navbar-container">
     {% include 'navbar.html' %}
 </div>
-<div class="steps">
+<!-- <div class="steps">
     <a class="step" href="{% url 'view_cart'%}"> <div>View Cart</div></a>
     <a class="step" href="{% url 'view_wishlist'%}"><div >View Wishlist</div></a>
   
-  </div>
+  </div> -->
 <!-- Step Indicator (If applicable) -->
 <div class="steps">
-    <div class="step">1. Select Setting</div>
-    <div class="step active">2. Select Stone</div>
+    <a href="{% url 'ring_settings'%}" class="step " ><div >1. Select Setting</div></a>
+  <a href="{% url 'stone'%}" class="step active" ><div >2. Select Stone</div></a>
     <div class="step ">3. Complete Ring</div>
 
 </div>

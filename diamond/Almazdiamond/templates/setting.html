@@ -153,7 +153,93 @@
       color: #666;
       font-size: 0.9rem;
     }
-    
+    .dropdown-container {
+      position: relative;
+      display: inline-block;
+      margin-left:7% ;
+      margin-top:3%;
+  }
+
+  .dropdown-btn-metal, .dropdown-btn-shape {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 2px solid black;
+      background: white;
+      border-radius: 5px;
+  }
+
+  .dropdown-content-metal {
+      display: none;
+      margin-top: 4%;
+      position: absolute;
+      background-color: white;
+      min-width: 200px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      gap:20px;
+      border-radius: 10px;
+      z-index: 100;
+  }
+  .dropdown-content-shape {
+    display: none;
+    margin-top: 4%;
+    position: absolute;
+    background-color: white;
+    min-width: 450px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 220px; /* Controls wrapping */
+}
+  .dropdown-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      border:2px solid gray;
+      border-radius: 10px;
+      flex: 1 1 calc(50% - 10px);
+      cursor: pointer;
+      max-width: 100px;
+      transition: 0.3s;
+  }
+  .dropdown-option:nth-child(9) {
+    flex: 1 1 100%;
+    text-align: center;
+    justify-content: center;
+}
+  .dropdown-option:hover {
+      background-color: #f1f1f1;
+  }
+
+  .dropdown-option img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+  }
+  .selected-text {
+    font-weight: bold;
+    margin-top: 10px;
+}
+  .selected-option {
+      font-weight: bold;
+      margin-top: 10px;
+  }
+  .filterdrop{
+    font-size: 12px;
+    width: max-content;
+    font-weight: 600;
+  }
+  .filtertext1{
+    width: max-content;
+    font-size: 16px;
+    font-weight: 600;
+  }
     /* Responsive adjustments */
     @media (max-width: 600px) {
       nav ul {
@@ -200,8 +286,8 @@
       }
       
       .ring-categories img {
-        width: 40px;                /* adjust icon size as needed */
-        height: 40px;
+        width: 95px;                /* adjust icon size as needed */
+        height: 65px;
         margin-bottom: 0.25rem;     /* space between icon and text */
       }
       
@@ -296,15 +382,15 @@
    
     {% include 'navbar.html' %}
 </div>
-<div class="steps">
+<!-- <div class="steps">
   <a class="step" href="{% url 'view_cart'%}"> <div>View Cart</div></a>
   <a class="step" href="{% url 'view_wishlist'%}"><div >View Wishlist</div></a>
 
-</div>
+</div> -->
 <div class="steps">
-  <div class="step active">1. Select Setting</div>
-  <div class="step">2. Select Stone</div>
-  <div class="step">3. Complete Ring</div>
+  <a href="{% url 'ring_settings'%}" class="step active" ><div >1. Select Setting</div></a>
+  <a href="{% url 'stone'%}" class="step" ><div >2. Select Stone</div></a>
+   <div  class="step" >3. Complete Ring</div>
 </div>
   <!-- Hero Section -->
   <section class="collection-hero">
@@ -314,103 +400,110 @@
  <!-- Ring Categories Container -->
 <div class="ring-categories">
   <div class="category" onclick="selectOption('ringCategory', 'Solitaire')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
-      <div class="category-name">Solitaire</div>
+      <img src="{% static 'img/ringfil1sol.png' %}" alt="Solitaire Icon">
+      <div class="category-name" style="margin-left: 18%;">Solitaire</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'Halo')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Halo Icon">
-      <div class="category-name">Halo</div>
+      <img src="{% static 'img/ringfil2pav.png' %}" alt="Halo Icon">
+      <div class="category-name" style="margin-left: 30%;">Halo</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'Pave')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Pave Icon">
-      <div class="category-name">Pave</div>
+      <img src="{% static 'img/ringfil3hal.png' %}" alt="Pave Icon">
+      <div class="category-name"  style="margin-left: 30%;">Pave</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'Three Stone')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Three Stone Icon">
+      <img src="{% static 'img/ringfil4nat.png' %}" alt="Three Stone Icon">
       <div class="category-name">Three Stone</div>
   </div>
+  <br>
   <div class="category" onclick="selectOption('ringCategory', 'Nature')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Nature Icon">
-      <div class="category-name">Nature</div>
+      <img src="{% static 'img/ringfil5hid.png' %}" alt="Nature Icon">
+      <div class="category-name"  style="margin-left: 22%;">Nature</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'Hidden Halo')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Hidden Halo Icon">
+      <img src="{% static 'img/ringfil6sid.png' %}" alt="Hidden Halo Icon">
       <div class="category-name">Hidden Halo</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'SideStone')">
-      <img src="{% static 'img/ringseting.png' %}" alt="SideStone Icon">
-      <div class="category-name">SideStone</div>
+      <img src="{% static 'img/ringfil7thr.png' %}" alt="SideStone Icon">
+      <div class="category-name" style="margin-left: 18%;">SideStone</div>
   </div>
   <div class="category" onclick="selectOption('ringCategory', 'Vintage')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Vintage Icon">
-      <div class="category-name">Vintage</div>
+      <img src="{% static 'img/ringfil8vin.png' %}" alt="Vintage Icon">
+      <div class="category-name" style="margin-left: 25%;">Vintage</div>
   </div>
 </div>
-
-<h3>Select Metal</h3>
-  <div class="ring-categories" id="metalModal">
-        
-            <div class="option" onclick="selectOption('metal', 'White Gold')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
-      <div class="category-name"> White Gold</div>
-             </div>
-            <div class="option" onclick="selectOption('metal', 'Yellow Gold')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
-      <div class="category-name"> Yellow Gold</div>
+<div style="display: flex;flex-direction:row;gap:20px;">
+<!-- <h3>Select Metal</h3> -->
+<div class="dropdown-container">
+  <button class="dropdown-btn-metal" onclick="toggleMetalDropdown()">Select Metal ▼</button>
+  <div class="dropdown-content-metal" id="metalDropdown">
+      <div class="dropdown-option" onclick="selectMetal('White Gold')">
+          <img src="{% static 'img/ringseting.png' %}" alt="White Gold">
+          <div class="filtertext1">White Gold</div>
       </div>
-            <div class="option" onclick="selectOption('metal', 'Rose Gold')">
-              <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
-                <div class="category-name">Rose Gold</div>
-          </div>
-            <div class="option" onclick="selectOption('metal', 'Platinum')">
-              <img src="{% static 'img/ringseting.png' %}" alt="Solitaire Icon">
-                <div class="category-name">Platinum</div></div>
-       
-        <!-- <button class="close-btn" onclick="closeModal('metalModal')">Close</button> -->
-    
-</div>
-
-<div class="ring-categories">
-  <div class="category-option" onclick="selectOption('shape', 'Round')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Round Icon">
-      <span>Round</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Oval')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Oval Icon">
-      <span>Oval</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Pear')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Pear Icon">
-      <span>Pear</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'E-Cushion')">
-      <img src="{% static 'img/ringseting.png' %}" alt="E-Cushion Icon">
-      <span>E-Cushion</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Cushion')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Cushion Icon">
-      <span>Cushion</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Emerald')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Emerald Icon">
-      <span>Emerald</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Princess')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Princess Icon">
-      <span>Princess</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Marquise')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Marquise Icon">
-      <span>Marquise</span>
-  </div>
-  <div class="category-option" onclick="selectOption('shape', 'Radiant')">
-      <img src="{% static 'img/ringseting.png' %}" alt="Radiant Icon">
-      <span>Radiant</span>
+      <div class="dropdown-option" onclick="selectMetal('Yellow Gold')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Yellow Gold">
+          <div class="filtertext1">Yellow Gold</div>
+      </div>
+      <div class="dropdown-option" onclick="selectMetal('Rose Gold')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Rose Gold">
+          <div class="filtertext1">Rose Gold</div>
+      </div>
+      <div class="dropdown-option" onclick="selectMetal('Platinum')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Platinum">
+          <div class="filtertext1">Platinum</div>
+      </div>
   </div>
 </div>
 
+<!-- <p class="selected-text" id="selectedMetal">Selected Metal: None</p> -->
 
- <select id="price_sort" onchange="selectOption('price_sort', this.value)">
+<!-- Shape Dropdown -->
+<!-- <h3>Select Shape</h3> -->
+<div class="dropdown-container" style="margin-left: 3% !important;">
+  <button class="dropdown-btn-shape" onclick="toggleShapeDropdown()">Select Shape ▼</button>
+  <div class="dropdown-content-shape" id="shapeDropdown">
+      <div class="dropdown-option" onclick="selectShape('Round')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Round Icon">
+          <div class="filtertext1">Round</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Oval')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Oval Icon">
+          <div class="filtertext1">Oval</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Pear')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Pear Icon">
+          <div class="filtertext1">Pear</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('E-Cushion')">
+          <img src="{% static 'img/ringseting.png' %}" alt="E-Cushion Icon">
+          <div class="filtertext1">E-Cushion</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Cushion')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Cushion Icon">
+          <div class="filtertext1">Cushion</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Emerald')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Emerald Icon">
+          <div class="filtertext1">Emerald</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Princess')">
+          <img  src="{% static 'img/ringseting.png' %}" alt="Princess Icon">
+          <div class="filtertext1">Princess</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Marquise')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Marquise Icon">
+          <div class="filtertext1">Marquise</div>
+      </div>
+      <div class="dropdown-option" onclick="selectShape('Radiant')">
+          <img src="{% static 'img/ringseting.png' %}" alt="Radiant Icon">
+          <div class="filtertext1">Radiant</div>
+      </div>
+  </div>
+</div>
+<div class="dropdown-container" style="margin-left: 3% !important;">
+ <select id="price_sort" onchange="selectOption('price_sort', this.value)" style="padding: 11px;border: 2px solid;border-radius: 6px;">
   <option value="High to Low"{%if price_sort == 'High to Low' %} selected {%endif%}>
     High to Low
   </option>
@@ -419,7 +512,8 @@
   </option>
   
  </select>
-
+</div>
+</div>
   <!-- Product Grid -->
   
   <div id="product-grid">
@@ -484,7 +578,43 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+  function toggleMetalDropdown() {
+    let metalDropdown = document.getElementById("metalDropdown");
+    metalDropdown.style.display = (metalDropdown.style.display === "flex") ? "none" : "flex";
+}
 
+// Select Metal Option
+function selectMetal(value) {
+    document.getElementById("selectedMetal").innerText = "Selected Metal: " + value;
+    document.getElementById("metalDropdown").style.display = "none";
+}
+
+// Toggle Shape Dropdown
+function toggleShapeDropdown() {
+    let shapeDropdown = document.getElementById("shapeDropdown");
+    shapeDropdown.style.display = (shapeDropdown.style.display === "flex") ? "none" : "flex";
+}
+
+// Select Shape Option
+function selectShape(value) {
+    document.getElementById("selectedShape").innerText = "Selected Shape: " + value;
+    document.getElementById("shapeDropdown").style.display = "none";
+}
+
+// Close only the active dropdown when clicking outside
+document.addEventListener("click", function(event) {
+    let metalDropdown = document.getElementById("metalDropdown");
+    let shapeDropdown = document.getElementById("shapeDropdown");
+    let metalBtn = document.querySelector(".dropdown-btn-metal");
+    let shapeBtn = document.querySelector(".dropdown-btn-shape");
+
+    if (!metalBtn.contains(event.target) && !metalDropdown.contains(event.target)) {
+        metalDropdown.style.display = "none";
+    }
+    if (!shapeBtn.contains(event.target) && !shapeDropdown.contains(event.target)) {
+        shapeDropdown.style.display = "none";
+    }
+});
 
 function selectOption(category, value) {
   let defaultOptions = {
