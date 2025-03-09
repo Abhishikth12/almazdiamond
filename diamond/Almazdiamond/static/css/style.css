@@ -49,6 +49,10 @@ body {
     margin:2%;
     gap:25px;
 }
+.scndsecringimg img{
+    height: 85vh; 
+     width: 100%;
+}
 @media (max-width: 480px) {
     .contone{
         display: flex;
@@ -70,6 +74,11 @@ body {
         flex-direction: column;
         gap:10%;
         margin:2%;
+    }
+    .scndsecringimg img{
+        height: 40vh;
+        width: 45%;
+        margin-left: 27%;
     }
     .fiveseccc{
         display: flex;
