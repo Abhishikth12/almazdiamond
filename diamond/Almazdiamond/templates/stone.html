@@ -99,6 +99,11 @@
     .ring-categories {
       background-color: #fff;
       border-bottom: 1px solid #e6e6e6;
+      display: flex;  /* Arrange items in a row */
+      flex-wrap: wrap;  /* Allow wrapping if needed */
+      justify-content: center;  /* Center items */
+      gap: 20px;  /* Add spacing between items */
+      padding: 20px;
     }
     
     .ring-categories ul {
@@ -131,9 +136,9 @@
     }
     
     .ring-categories img {
-      width: 40px;               
-      height: 40px;
-      margin-bottom: 0.25rem;     
+      width: 95px;                /* adjust icon size as needed */
+        height: 65px;
+        margin-bottom: 0.25rem;      
     }
     
     .ring-categories span {
@@ -220,6 +225,7 @@
       background-color: #333;
       color: white;
       text-decoration: none;
+      border-radius: 12px;;
       padding: 10px 0;
       text-align: center;
       font-weight: 500;
@@ -424,7 +430,7 @@
     <p style="margin-top:2%;">Use the filters below to design your perfect engagement ring</p>
   </section>
   
-  <nav class="ring-categories">
+  <!-- <nav class="ring-categories">
     <ul>
       {% for i in stone_shapes %}
       <li>
@@ -435,8 +441,50 @@
       </li>
       {% endfor %}
     </ul>
-  </nav>
+  </nav> -->
+  <div class="ring-categories">
+    <div class="category" onclick="selectOption('stoneCategory', 'Round')">
+        <img src="{% static 'img/Round.png' %}" alt="Round Icon">
+        <div class="category-name" style="margin-left: 22%;">Round</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Emerald')">
+        <img src="{% static 'img/Emerald.png' %}" alt="Emerald Icon">
+        <div class="category-name" style="margin-left: 18%;">Emerald</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Heart')">
+        <img src="{% static 'img/Heart.png' %}" alt="Heart Icon">
+        <div class="category-name"  style="margin-left: 25%;">Heart</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Marquise')">
+        <img src="{% static 'img/Marquise.png' %}" alt="Marquise Icon">
+        <div class="category-name" style="margin-left: 18%;">Marquise</div>
+    </div>
   
+    <div class="category" onclick="selectOption('stoneCategory', 'Oval')">
+        <img src="{% static 'img/Oval.png' %}" alt="Oval Icon">
+        <div class="category-name"  style="margin-left: 32%;">Oval</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Pear')">
+        <img src="{% static 'img/Pear.png' %}" alt="Pear Icon">
+        <div class="category-name" style="margin-left: 30%;">Pear</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Princess')">
+        <img src="{% static 'img/Princess.png' %}" alt="Princess Icon">
+        <div class="category-name" style="margin-left: 18%;">Princess</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Radiant')">
+        <img src="{% static 'img/Radiant.png' %}" alt="Radiant Icon">
+        <div class="category-name" style="margin-left: 25%;">Radiant</div>
+    </div>
+    <div class="category" onclick="selectOption('stoneCategory', 'Cushion')">
+      <img src="{% static 'img/Cushion.png' %}" alt="Cushion Icon">
+      <div class="category-name" style="margin-left: 25%;">Cushion</div>
+  </div>
+  <div class="category" onclick="selectOption('stoneCategory', 'E Cushion')">
+    <img src="{% static 'img/E. Cushion.png' %}" alt="E Cushion Icon">
+    <div class="category-name" style="margin-left: 16%;">E-Cushion</div>
+</div>
+  </div>
   <!-- <div class="selection-container">
     <h2 class="selection-title">Stone Cut</h2>
     <div class="selection-grid">
@@ -526,13 +574,21 @@
         </div>
         
         <a href="{% if ring_id %}{% url 'ring_get_more_stone_details' i.id ring_id %}{% else %}{% url 'get_more_stone_details' i.id %}{% endif %}" class="view-details">View Details</a>
-        <a onclick="addto_cart('{{i.id}}')" class="view-details"  style="background-color: #fff;color:#000;border:2px solid;">Add to cart</a>
-      <a onclick="addto_wishlist('{{i.id}}')" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">Add Wishlist</a>
+        <a onclick="addto_cart('{{i.id}}')" class="view-details"  style="background-color: #fff;color:#000;border:2px solid;border-radius:12px;">Add to cart <img src="{% static 'img/addcarticn.png' %}" alt="whishlist" style="width: 20px;margin-left: 10px;"></a>
+      <a onclick="addto_wishlist('{{i.id}}')" class="view-details" style="background-color: #fff;color:#000;border:2px solid;border-radius:12px;">Add Wishlist <img src="{% static 'img/wishlisticn.png' %}" alt="whishlist" style="width: 20px;margin-left: 10px;"></a>
       </div>
     </div>
     {% endfor %}
   </div>
-
+<!-- Success Modal -->
+<div id="successModal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img src="{% static 'img/productaddsucess.png' %}" alt="Success Icon" style="width: 60px;">
+      <h2 style="margin-top:20px;">Product Added Successfully!</h2>
+      <p style="margin-top:20px;">Your product has been added to the cart/wishlist.</p>
+  </div>
+</div>
   <!-- Footer -->
   <div id="footer-container">
     {% include 'footer.html' %}
@@ -591,7 +647,19 @@
     });
 </script>
 <script>
-  
+  function showSuccessModal() {
+    // Display the success modal
+    let modal = document.getElementById("successModal");
+    modal.style.display = "block";
+    
+    // Close the modal after 3 seconds
+    setTimeout(closeModal, 3000);
+}
+
+function closeModal() {
+    let modal = document.getElementById("successModal");
+    modal.style.display = "none";
+} 
 function addto_cart(item_id){
   let url=`/addto_cart`;
   let seleted_product={
@@ -609,6 +677,8 @@ function addto_cart(item_id){
     .then(response => response.json())
     .then(data => {
         console.log("Success:", data);
+        showSuccessModal();
+        
     });
   }
 function addto_wishlist(item_id){
@@ -628,6 +698,7 @@ let seleted_product={
   .then(response => response.json())
   .then(data => {
       console.log("Success:", data);
+      showSuccessModal();
   });
 }
 

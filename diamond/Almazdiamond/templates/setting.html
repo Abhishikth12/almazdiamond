@@ -148,7 +148,7 @@
       margin-top: 2rem;
       border-top: 1px solid #e6e6e6;
     }
-
+    
     footer p {
       color: #666;
       font-size: 0.9rem;
@@ -371,11 +371,11 @@
             color: #000;
           }
   </style>
-  <meta name="csrf-token" content="{% csrf_token %}">
+  
 
 </head>
 <body>
-
+  <!-- <meta name="csrf-token" content="{% csrf_token %}" > -->
 
   <!-- Header -->
   <div id="navbar-container">
@@ -415,7 +415,7 @@
       <img src="{% static 'img/ringfil4nat.png' %}" alt="Three Stone Icon">
       <div class="category-name">Three Stone</div>
   </div>
-  <br>
+
   <div class="category" onclick="selectOption('ringCategory', 'Nature')">
       <img src="{% static 'img/ringfil5hid.png' %}" alt="Nature Icon">
       <div class="category-name"  style="margin-left: 22%;">Nature</div>
@@ -433,24 +433,24 @@
       <div class="category-name" style="margin-left: 25%;">Vintage</div>
   </div>
 </div>
-<div style="display: flex;flex-direction:row;gap:20px;">
+<div style="display: flex;flex-direction:row;gap:20px;margin-bottom:2%;">
 <!-- <h3>Select Metal</h3> -->
 <div class="dropdown-container">
   <button class="dropdown-btn-metal" onclick="toggleMetalDropdown()">Select Metal ▼</button>
   <div class="dropdown-content-metal" id="metalDropdown">
-      <div class="dropdown-option" onclick="selectMetal('White Gold')">
+      <div class="dropdown-option" onclick="selectOption('metal','White Gold')">
           <img src="{% static 'img/ringseting.png' %}" alt="White Gold">
           <div class="filtertext1">White Gold</div>
       </div>
-      <div class="dropdown-option" onclick="selectMetal('Yellow Gold')">
+      <div class="dropdown-option" onclick="selectOption('metal','Yellow Gold')">
           <img src="{% static 'img/ringseting.png' %}" alt="Yellow Gold">
           <div class="filtertext1">Yellow Gold</div>
       </div>
-      <div class="dropdown-option" onclick="selectMetal('Rose Gold')">
+      <div class="dropdown-option" onclick="selectOption('metal','Rose Gold')">
           <img src="{% static 'img/ringseting.png' %}" alt="Rose Gold">
           <div class="filtertext1">Rose Gold</div>
       </div>
-      <div class="dropdown-option" onclick="selectMetal('Platinum')">
+      <div class="dropdown-option" onclick="selectOption('metal','Platinum')">
           <img src="{% static 'img/ringseting.png' %}" alt="Platinum">
           <div class="filtertext1">Platinum</div>
       </div>
@@ -464,39 +464,39 @@
 <div class="dropdown-container" style="margin-left: 3% !important;">
   <button class="dropdown-btn-shape" onclick="toggleShapeDropdown()">Select Shape ▼</button>
   <div class="dropdown-content-shape" id="shapeDropdown">
-      <div class="dropdown-option" onclick="selectShape('Round')">
+      <div class="dropdown-option" onclick="selectOption('shape','Round')">
           <img src="{% static 'img/ringseting.png' %}" alt="Round Icon">
           <div class="filtertext1">Round</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Oval')">
+      <div class="dropdown-option" onclick="selectOption('shape','Oval')">
           <img src="{% static 'img/ringseting.png' %}" alt="Oval Icon">
           <div class="filtertext1">Oval</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Pear')">
+      <div class="dropdown-option" onclick="selectOption('shape','Pear')">
           <img src="{% static 'img/ringseting.png' %}" alt="Pear Icon">
           <div class="filtertext1">Pear</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('E-Cushion')">
+      <div class="dropdown-option" onclick="selectOption('shape','E-Cushion')">
           <img src="{% static 'img/ringseting.png' %}" alt="E-Cushion Icon">
           <div class="filtertext1">E-Cushion</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Cushion')">
+      <div class="dropdown-option" onclick="selectOption('shape','Cushion')">
           <img src="{% static 'img/ringseting.png' %}" alt="Cushion Icon">
           <div class="filtertext1">Cushion</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Emerald')">
+      <div class="dropdown-option" onclick="selectOption('shape','Emerald')">
           <img src="{% static 'img/ringseting.png' %}" alt="Emerald Icon">
           <div class="filtertext1">Emerald</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Princess')">
+      <div class="dropdown-option" onclick="selectOption('shape','Princess')">
           <img  src="{% static 'img/ringseting.png' %}" alt="Princess Icon">
           <div class="filtertext1">Princess</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Marquise')">
+      <div class="dropdown-option" onclick="selectOption('shape','Marquise')">
           <img src="{% static 'img/ringseting.png' %}" alt="Marquise Icon">
           <div class="filtertext1">Marquise</div>
       </div>
-      <div class="dropdown-option" onclick="selectShape('Radiant')">
+      <div class="dropdown-option" onclick="selectOption('shape','Radiant')">
           <img src="{% static 'img/ringseting.png' %}" alt="Radiant Icon">
           <div class="filtertext1">Radiant</div>
       </div>
@@ -528,8 +528,8 @@
       <a href="{%if stone_id %}{%url 'stone_get_more_ring_details' i.id stone_id%}{%else%}{%url 'get_more_ring_details' i.id %}{%endif%}" class="view-details">Complete Ring</a>
       </div>
      <div style="display: flex;justify-content:space-evenly;gap:18px;margin-top:10%;">
-      <a onclick="addto_cart('{{i.id}}')">Add to cart</a>
-      <a onclick="addto_wishlist('{{i.id}}')" class="view-details" style="background-color: #fff;color:#000;border:2px solid;">Add Wishlist</a>
+      <a onclick="addto_cart('{{i.id}}')">Add to cart <img src="{% static 'img/addcarticn.png' %}" alt="whishlist"></a>
+      <a onclick="addto_wishlist('{{i.id}}')"  class="view-details" style="background-color: #fff;color:#000;border:2px solid;">Add Wishlist <img src="{% static 'img/wishlisticn.png' %}" alt="whishlist"></a>
       
     </div>
     </div>
@@ -564,6 +564,15 @@
         <h3>Lifetime Warranty</h3>
         <p>Shop With Confidence</p>
     </div>
+</div>
+<!-- Success Modal -->
+<div id="successModal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img src="{% static 'img/productaddsucess.png' %}" alt="Success Icon" style="width: 60px;">
+      <h2 style="margin-top: 20px;">Product Added Successfully...!</h2>
+      <p style="margin-top: 20px;">Your product has been added to that page..</p>
+  </div>
 </div>
   <!-- Footer -->
   <div id="footer-container">
@@ -699,6 +708,19 @@ function updateProductGrid(rings,stone_id) {
   });
 }
 }
+function showSuccessModal() {
+  // Display the success modal
+  let modal = document.getElementById("successModal");
+  modal.style.display = "block";
+  
+  // Close the modal after 3 seconds
+  setTimeout(closeModal, 3000);
+}
+
+function closeModal() {
+  let modal = document.getElementById("successModal");
+  modal.style.display = "none";
+}
 function addto_cart(item_id){
   let url=`/addto_cart`;
   let seleted_product={
@@ -716,6 +738,8 @@ function addto_cart(item_id){
     .then(response => response.json())
     .then(data => {
         console.log("Success:", data);
+        showSuccessModal();
+
     });
   }
 function addto_wishlist(item_id){
@@ -735,6 +759,7 @@ let seleted_product={
   .then(response => response.json())
   .then(data => {
       console.log("Success:", data);
+      showSuccessModal();
   });
 }
 </script>
